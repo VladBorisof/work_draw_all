@@ -63,6 +63,8 @@ public:
 
     void set_independent_var_pi0(int i);
 
+    void set_sys_errors();
+
     void get_integrated_rab();
     void int_format_graph(Float_t mark_size, Width_t line_wd, Float_t alpha);
     void int_format_graph_sys(double xe, Width_t line_wd, Float_t alpha);
@@ -167,6 +169,15 @@ Particles::Particles(const TString& part, int c, int n, Color_t col, Style_t mar
   }
 };
 
+
+void Particles::set_sys_errors() {
+  for (int i = 0; i < _cen; ++i) {
+    for (int j = 0; j < _n; ++j) {
+      rab[1][i][j] = rab[0][i][j] * rab[1][i][j] / 100;
+      rab[2][i][j] = rab[0][i][j] * rab[2][i][j] / 100;
+    }
+  }
+}
 
 void Particles::set_independent_var(int i) {
   for (int l = 0; l < _cen; ++l) {
