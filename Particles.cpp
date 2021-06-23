@@ -264,23 +264,53 @@ void Particles::get_rab_kstar_dau() {
 
 // phi
 void Particles::get_rab_phi_cuau() {
-
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < _cen; ++j) {
+      for (int k = 0; k < _n; ++k) {
+        rab[i][j][k] = rab_phi_cuau[i][j][k];
+      }
+    }
+  }
 }
 
 void Particles::get_rab_phi_uu() {
-
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < _cen; ++j) {
+      for (int k = 0; k < _n; ++k) {
+        rab[i][j][k] = rab_phi_uu[i][j][k];
+      }
+    }
+  }
 }
 
 void Particles::get_rab_phi_heau() {
-
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < _cen; ++j) {
+      for (int k = 0; k < _n; ++k) {
+        rab[i][j][k] = rab_phi_heau[i][j][k];
+      }
+    }
+  }
 }
 
 void Particles::get_rab_phi_pau() {
-
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < _cen; ++j) {
+      for (int k = 0; k < _n; ++k) {
+        rab[i][j][k] = rab_phi_pau[i][j][k];
+      }
+    }
+  }
 }
 
 void Particles::get_rab_phi_pal() {
-
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < _cen; ++j) {
+      for (int k = 0; k < _n; ++k) {
+        rab[i][j][k] = rab_phi_pal[i][j][k];
+      }
+    }
+  }
 }
 
 
