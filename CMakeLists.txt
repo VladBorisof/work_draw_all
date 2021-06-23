@@ -5,7 +5,6 @@ set(CMAKE_CXX_STANDARD 14)
 
 
 include_directories(~/root/install_root/include)
-include_directories(~/root/pythia8240/include/Pythia8)
 
 add_executable(plotter.cpp
         FormatOfEverything.h
