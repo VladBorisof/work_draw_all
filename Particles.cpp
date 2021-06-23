@@ -263,6 +263,19 @@ void Particles::get_rab_kstar_dau() {
 
 
 // phi
+void Particles::set_independent_var_phi(int i) {
+  /*for (int l = 0; l < _cen; ++l) {
+    typec[l] = typec_kstar[i][l];
+  }
+  for (int l = 0; l < _cen; ++l) {
+    npart[l] = npart_kstar[i][l];
+  }*/
+  for (int l = 0; l < _n; ++l) {
+    pt[l] = pt_phi[i][l];
+  }
+}
+
+
 void Particles::get_rab_phi_cuau() {
   for (int i = 0; i < 3; ++i) {
     for (int j = 0; j < _cen; ++j) {
@@ -313,6 +326,69 @@ void Particles::get_rab_phi_pal() {
   }
 }
 
+
+// pi0
+void Particles::set_independent_var_pi0(int i) {
+  /*for (int l = 0; l < _cen; ++l) {
+    typec[l] = typec_kstar[i][l];
+  }
+  for (int l = 0; l < _cen; ++l) {
+    npart[l] = npart_kstar[i][l];
+  }*/
+  for (int l = 0; l < _n; ++l) {
+    pt[l] = pt_pi0[i][l];
+  }
+}
+
+void Particles::get_rab_pi0_cuau() {
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < _cen; ++j) {
+      for (int k = 0; k < _n; ++k) {
+        rab[i][j][k] = rab_pi0_cuau[i][j][k];
+      }
+    }
+  }
+}
+
+void Particles::get_rab_pi0_uu() {
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < _cen; ++j) {
+      for (int k = 0; k < _n; ++k) {
+        rab[i][j][k] = rab_pi0_uu[i][j][k];
+      }
+    }
+  }
+}
+
+void Particles::get_rab_pi0_heau() {
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < _cen; ++j) {
+      for (int k = 0; k < _n; ++k) {
+        rab[i][j][k] = rab_pi0_heau[i][j][k];
+      }
+    }
+  }
+}
+
+void Particles::get_rab_pi0_pau() {
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < _cen; ++j) {
+      for (int k = 0; k < _n; ++k) {
+        rab[i][j][k] = rab_pi0_pau[i][j][k];
+      }
+    }
+  }
+}
+
+void Particles::get_rab_pi0_pal() {
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < _cen; ++j) {
+      for (int k = 0; k < _n; ++k) {
+        rab[i][j][k] = rab_pi0_pal[i][j][k];
+      }
+    }
+  }
+}
 
 //== integrated_rab ==//
 void Particles::get_integrated_rab() {
