@@ -149,19 +149,24 @@ Particles::Particles(const TString& part, int c, int n, Color_t col, Style_t mar
   }
 
 
-  else if (part == "rab_phi_cuau") {
+  else if (part == "rab_pi0_cuau") {
     set_independent_var_pi0(0);
     get_rab_pi0_cuau();
-  } else if (part == "rab_phi_uu") {
-
-  } else if (part == "rab_phi_heau") {
-
-  } else if (part == "rab_phi_pau") {
-
-  } else if (part == "rab_phi_pal") {
-
+  } else if (part == "rab_pi0_uu") {
+    set_independent_var_pi0(0);
+    get_rab_pi0_uu();
+  } else if (part == "rab_pi0_heau") {
+    set_independent_var_pi0(0);
+    get_rab_pi0_heau();
+  } else if (part == "rab_pi0_pau") {
+    set_independent_var_pi0(0);
+    get_rab_pi0_pau();
+  } else if (part == "rab_pi0_pal") {
+    set_independent_var_pi0(0);
+    get_rab_pi0_pal();
   }
 };
+
 
 void Particles::set_independent_var(int i) {
   for (int l = 0; l < _cen; ++l) {
@@ -254,6 +259,11 @@ void Particles::get_rab_kstar_dau() {
       }
     }
   }
+}
+
+
+void Particles::get_rab_phi_cuau() {
+
 }
 
 //== integrated_rab ==//
