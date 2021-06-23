@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.14)
 project(work_draw_all)
 
 set(CMAKE_CXX_STANDARD 14)
-
+fj
+gk
 
 include_directories(~/root/install_root/include)
 
