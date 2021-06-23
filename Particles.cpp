@@ -153,16 +153,16 @@ Particles::Particles(const TString& part, int c, int n, Color_t col, Style_t mar
     set_independent_var_pi0(0);
     get_rab_pi0_cuau();
   } else if (part == "rab_pi0_uu") {
-    set_independent_var_pi0(0);
+    set_independent_var_pi0(1);
     get_rab_pi0_uu();
   } else if (part == "rab_pi0_heau") {
-    set_independent_var_pi0(0);
+    set_independent_var_pi0(2);
     get_rab_pi0_heau();
   } else if (part == "rab_pi0_pau") {
-    set_independent_var_pi0(0);
+    set_independent_var_pi0(3);
     get_rab_pi0_pau();
   } else if (part == "rab_pi0_pal") {
-    set_independent_var_pi0(0);
+    set_independent_var_pi0(4);
     get_rab_pi0_pal();
   }
 };
