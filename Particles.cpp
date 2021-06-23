@@ -262,9 +262,27 @@ void Particles::get_rab_kstar_dau() {
 }
 
 
+// phi
 void Particles::get_rab_phi_cuau() {
 
 }
+
+void Particles::get_rab_phi_uu() {
+
+}
+
+void Particles::get_rab_phi_heau() {
+
+}
+
+void Particles::get_rab_phi_pau() {
+
+}
+
+void Particles::get_rab_phi_pal() {
+
+}
+
 
 //== integrated_rab ==//
 void Particles::get_integrated_rab() {
