@@ -4,8 +4,8 @@ project(work_draw_all)
 set(CMAKE_CXX_STANDARD 14)
 
 
-include_directories(~/root/install_root/include)
-include_directories(~/root/pythia8240/include/Pythia8)
+include_directories(~/Programs/root_62400/root/include)
+
 
 add_executable(plotter.cpp
         FormatOfEverything.h
