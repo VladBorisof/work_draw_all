@@ -63,6 +63,10 @@ public:
 
     void set_independent_var_pi0(int i);
 
+    void get_rab_eta_cuau();
+    void get_rab_eta_uu();
+    void set_independent_var_eta(int i);
+
     void set_sys_errors();
 
     void get_integrated_rab();
@@ -167,6 +171,15 @@ Particles::Particles(const TString& part, int c, int n, Color_t col, Style_t mar
     set_independent_var_pi0(4);
     get_rab_pi0_pal();
   }
+
+  else if (part == "rab_eta_cuau") {
+      set_independent_var_eta(0);
+      get_rab_eta_cuau();
+  } else if (part == "rab_eta_uu") {
+      set_independent_var_eta(1);
+      get_rab_eta_uu();
+  }
+
 };
 
 
@@ -351,6 +364,8 @@ void Particles::set_independent_var_pi0(int i) {
   }
 }
 
+
+
 void Particles::get_rab_pi0_cuau() {
   for (int i = 0; i < 3; ++i) {
     for (int j = 0; j < _cen; ++j) {
@@ -400,6 +415,45 @@ void Particles::get_rab_pi0_pal() {
     }
   }
 }
+
+
+void Particles::set_independent_var_eta(int i) {
+    /*for (int l = 0; l < _cen; ++l) {
+      typec[l] = typec_kstar[i][l];
+    }
+    for (int l = 0; l < _cen; ++l) {
+      npart[l] = npart_kstar[i][l];
+    }*/
+    for (int l = 0; l < _n; ++l) {
+        pt[l] = pt_eta[i][l];
+    }
+}
+
+void Particles::get_rab_eta_cuau() {
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < _cen; ++j) {
+            for (int k = 0; k < _n; ++k) {
+                rab[i][j][k] = rab_eta_cuau[i][j][k];
+            }
+        }
+    }
+}
+
+void Particles::get_rab_eta_uu() {
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < _cen; ++j) {
+            for (int k = 0; k < _n; ++k) {
+                rab[i][j][k] = rab_eta_uu[i][j][k];
+            }
+        }
+    }
+}
+
+
+
+
+
+
 
 //== integrated_rab ==//
 void Particles::get_integrated_rab() {

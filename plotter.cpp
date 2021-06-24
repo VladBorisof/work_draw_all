@@ -1161,7 +1161,7 @@ void plotter_rab_cuau_phi_pi_eta() {
     kstar_pi0_cuau->rab_format_graph_sys(0.05, 10, 0.3);
     kstar_pi0_cuau->type_c_format(7.28, 0.05);
 
-    auto kstar_eta_cuau = new Particles("rab_eta_cuau", 4, n_eta_cuau, kBlack, 95);
+    auto kstar_eta_cuau = new Particles("rab_eta_cuau", 4, n_eta_cuau-2, kBlack, 95);
     kstar_pi0_cuau->set_sys_errors();
     kstar_eta_cuau->rab_format_graph(4, 4, 0.5);
     kstar_eta_cuau->rab_format_graph_sys(0.06, 10, 0.3);
