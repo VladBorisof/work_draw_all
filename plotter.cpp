@@ -922,6 +922,7 @@ void plotter_rab_heau_phiHeAu_piHeAu() {
     kstar_phi_heau->type_c_format(7.92, 0.05);
 
     auto kstar_pi0_heau = new Particles("rab_pi0_heau", 4, n_pi0_heau, kRed, 91);
+    kstar_pi0_heau->set_sys_errors();
     kstar_pi0_heau->rab_format_graph(4, 4, 0.5);
     kstar_pi0_heau->rab_format_graph_sys(0.05, 10, 0.3);
     kstar_pi0_heau->type_c_format(7.84, 0.05);
@@ -938,12 +939,12 @@ void plotter_rab_heau_phiHeAu_piHeAu() {
 
 
 
-    legend->AddEntry(kstar_heau->graph_legend(8), "He+Au", "p");
-    legend->AddEntry(kstar_phi_heau->graph_legend(8), "phi+HeAu", "p");
-    legend->AddEntry(kstar_pi0_heau->graph_legend(8), "pi0+HeAu", "p");
+    legend->AddEntry(kstar_heau->graph_legend(8), "K*^{0}", "p");
+    legend->AddEntry(kstar_phi_heau->graph_legend(8), "phi", "p");
+    legend->AddEntry(kstar_pi0_heau->graph_legend(8), "pi0", "p");
 
     TString centr1[] = {"0-20%","20-40%", "Peripheral", "MinBias"};
-    Double_t x_for_centr1[] = {7, 6.8, 6.3, 6.7};
+    Double_t x_for_centr1[] = {7, 6.8, 6.18, 6.63};
 
     for (int i = 0; i < 4; ++i) {
         c1->cd(i + 1);
@@ -952,7 +953,7 @@ void plotter_rab_heau_phiHeAu_piHeAu() {
 
 
 
-        double param_pad[] = {0.8, 8.2, 0.01, 2.6, 1, 1.15, 0.055, 0.06, 0, 504, 506, 1};
+        double param_pad[] = {0.8, 8.2, 0.01, 1.9, 1, 1.15, 0.055, 0.06, 0, 504, 506, 1};
         Format_Pad(param_pad, x_title, y_title);
 
         if (i == 1) legend->Draw();
@@ -960,12 +961,12 @@ void plotter_rab_heau_phiHeAu_piHeAu() {
         Double_t param_lat[] = {7.2, 0.1, 62, 0.08, 2};
         kstar_heau->latex_draw(param_lat, abcd[i]);
 
-        Double_t param_lat_name[] = {1.4, 2.4, 62, 0.049, 2};
-        if (i == 0) kstar_heau->latex_draw(param_lat_name, "K*^{0}, #sqrt{s_{NN}}=200 GeV, |#eta|<0.35");
+        Double_t param_lat_name[] = {1, 1.75, 62, 0.049, 2};
+        if (i == 0) kstar_heau->latex_draw(param_lat_name, "He+Au, #sqrt{s_{NN}}=200 GeV, |#eta|<0.35");
 
 
 
-        Double_t param_lat_name1[] = {x_for_centr1[i], 2.4, 62, 0.049, 2};
+        Double_t param_lat_name1[] = {x_for_centr1[i], 1.75, 62, 0.049, 2};
         kstar_phi_heau->latex_draw(param_lat_name1, centr1[i] );
 
 
@@ -998,17 +999,18 @@ void plotter_rab_pau_phipAu_pipau() {
     auto kstar_pau = new Particles("rab_kstar_pau", 4, n_kstar_pau, kGreen, 107);
     kstar_pau->rab_format_graph(4, 4, 0.7);
     kstar_pau->rab_format_graph_sys(0.06, 10, 0.3);
-    kstar_pau->type_c_format(4.9, 0.05);
+    kstar_pau->type_c_format(4.85, 0.05);
 
     auto kstar_phi_pau = new Particles("rab_phi_pau", 4, n_phi_pau, kBlue, 108);
     kstar_phi_pau->rab_format_graph(4, 4, 0.5);
     kstar_phi_pau->rab_format_graph_sys(0.06, 10, 0.3);
-    kstar_phi_pau->type_c_format(7.92, 0.05);
+    kstar_phi_pau->type_c_format(4.79, 0.05);
 
     auto kstar_pi0_pau = new Particles("rab_pi0_pau", 4, n_pi0_pau, kRed, 91);
+    kstar_pi0_pau->set_sys_errors();
     kstar_pi0_pau->rab_format_graph(4, 4, 0.5);
     kstar_pi0_pau->rab_format_graph_sys(0.05, 10, 0.3);
-    kstar_pi0_pau->type_c_format(7.84, 0.05);
+    kstar_pi0_pau->type_c_format(4.73, 0.05);
 
 
     auto legend = new TLegend(0.4, 0.8, 0.15, 1.03);
@@ -1018,12 +1020,12 @@ void plotter_rab_pau_phipAu_pipau() {
     Format_Canvas(c1, 2, 2, 0);
 
 
-    legend->AddEntry(kstar_pau->graph_legend(8), "p+Au", "p");
-    legend->AddEntry(kstar_phi_pau->graph_legend(8), "phi+pAu", "p");
-    legend->AddEntry(kstar_pi0_pau->graph_legend(8), "pi0+pAu", "p");
+    legend->AddEntry(kstar_pau->graph_legend(8), "K*^{0}", "p");
+    legend->AddEntry(kstar_phi_pau->graph_legend(8), "phi", "p");
+    legend->AddEntry(kstar_pi0_pau->graph_legend(8), "pi0", "p");
 
     TString centr1[] = {"0-20%", "20-40%", "Peripheral", "MinBias"};
-    Double_t x_for_centr1[] = {7, 6.8, 6.3, 6.7};
+    Double_t x_for_centr1[] = {4.32, 4.2, 3.86, 4.1};
 
     for (int i = 0; i < 4; ++i) {
         c1->cd(i + 1);
@@ -1031,7 +1033,7 @@ void plotter_rab_pau_phipAu_pipau() {
         SetMarginPad(par_sp_pal);
 
 
-        double param_pad[] = {0.8, 5.2, 0.01, 2.6, 1, 1.15, 0.055, 0.06, 0, 504, 506, 1};
+        double param_pad[] = {0.8, 5, 0.01, 1.95, 1, 1.15, 0.055, 0.06, 0, 504, 506, 1};
         Format_Pad(param_pad, x_title, y_title);
 
         if (i == 1) legend->Draw();
@@ -1039,11 +1041,11 @@ void plotter_rab_pau_phipAu_pipau() {
         Double_t param_lat[] = {7.2, 0.1, 62, 0.08, 2};
         kstar_pau->latex_draw(param_lat, abcd[i]);
 
-        Double_t param_lat_name[] = {1.4, 2.4, 62, 0.049, 2};
-        if (i == 0) kstar_pau->latex_draw(param_lat_name, "K*^{0}, #sqrt{s_{NN}}=200 GeV, |#eta|<0.35");
+        Double_t param_lat_name[] = {0.9, 1.8, 62, 0.049, 2};
+        if (i == 0) kstar_pau->latex_draw(param_lat_name, "p+Au, #sqrt{s_{NN}}=200 GeV, |#eta|<0.35");
 
 
-        Double_t param_lat_name1[] = {x_for_centr1[i], 2.4, 62, 0.049, 2};
+        Double_t param_lat_name1[] = {x_for_centr1[i], 1.8, 62, 0.049, 2};
         kstar_phi_pau->latex_draw(param_lat_name1, centr1[i]);
 
 
@@ -1072,18 +1074,18 @@ void plotter_rab_pal_phipAl_pipal() {
     auto kstar_pal = new Particles("rab_kstar_pal", 4, n_kstar_pal, kGreen, 107);
     kstar_pal->rab_format_graph(4, 4, 0.7);
     kstar_pal->rab_format_graph_sys(0.06, 10, 0.3);
-    kstar_pal->type_c_format(4.9, 0.05);
+    kstar_pal->type_c_format(4.15, 0.05);
 
     auto kstar_phi_pal = new Particles("rab_phi_pal", 4, n_phi_pal, kBlue, 108);
     kstar_phi_pal->rab_format_graph(4, 4, 0.5);
     kstar_phi_pal->rab_format_graph_sys(0.06, 10, 0.3);
-    kstar_phi_pal->type_c_format(7.92, 0.05);
+    kstar_phi_pal->type_c_format(4.09, 0.05);
 
     auto kstar_pi0_pal = new Particles("rab_pi0_pal", 4, n_pi0_pal-2, kRed, 91);
     kstar_pi0_pal->set_sys_errors();
     kstar_pi0_pal->rab_format_graph(4, 4, 0.5);
     kstar_pi0_pal->rab_format_graph_sys(0.05, 10, 0.3);
-    kstar_pi0_pal->type_c_format(7.84, 0.05);
+    kstar_pi0_pal->type_c_format(4.03, 0.05);
 
 
     auto legend = new TLegend(0.4, 0.8, 0.15, 1.03);
@@ -1098,7 +1100,7 @@ void plotter_rab_pal_phipAl_pipal() {
     legend->AddEntry(kstar_pi0_pal->graph_legend(8), "pi0", "p");
 
     TString centr1[] = {"0-20%", "20-40%", "Peripheral", "MinBias"};
-    Double_t x_for_centr1[] = {4.45, 4.35, 4, 4.2};
+    Double_t x_for_centr1[] = {3.73, 3.63, 3.35, 3.53};
 
     for (int i = 0; i < 4; ++i) {
         c1->cd(i + 1);
@@ -1106,23 +1108,23 @@ void plotter_rab_pal_phipAl_pipal() {
         SetMarginPad(par_sp_pal);
 
 
-        double param_pad[] = {0.8, 5.2, 0.01, 2.6, 1, 1.15, 0.055, 0.06, 0, 504, 506, 1};
+        double param_pad[] = {0.8, 4.3, 0.01, 1.9, 1, 1.15, 0.055, 0.06, 0, 504, 506, 1};
         Format_Pad(param_pad, x_title, y_title);
 
         if (i == 1) legend->Draw();
 
-        Double_t param_lat[] = {7.2, 0.1, 62, 0.08, 2};
+        Double_t param_lat[] = {3.84, 0.1, 62, 0.08, 2};
         kstar_pal->latex_draw(param_lat, abcd[i]);
 
-        Double_t param_lat_name[] = {0.9, 2.4, 62, 0.049, 2};
+        Double_t param_lat_name[] = {0.9, 1.76, 62, 0.049, 2};
         if (i == 0) kstar_pal->latex_draw(param_lat_name, "p+Al, #sqrt{s_{NN}}=200 GeV, |#eta|<0.35");
 
 
-        Double_t param_lat_name1[] = {x_for_centr1[i], 2.4, 62, 0.049, 2};
+        Double_t param_lat_name1[] = {x_for_centr1[i], 1.76, 62, 0.049, 2};
         kstar_phi_pal->latex_draw(param_lat_name1, centr1[i]);
 
 
-        double params[5] = {0.8, 5.2, 7, 1, 10};
+        double params[5] = {0.8, 4.5, 7, 1, 10};
         unity->unity_level(params);
 
 
@@ -1134,8 +1136,91 @@ void plotter_rab_pal_phipAl_pipal() {
 
     c1->Print("ppg_plots/rab_pal_phipAl_pipal_1.png");
 }
+
+void plotter_rab_cuau_phi_pi_eta() {
+
+    auto unity_level = new Particles();
+    auto unity = new Particles();
+
+
+    TString x_title = "p_{T} [GeV/c]";
+    TString y_title = "R_{AB}";
+
+    auto kstar_cuau = new Particles("rab_kstar_cuau", 4, n_kstar_cuau, kGreen, 107);
+    kstar_cuau->rab_format_graph(4, 4, 0.7);
+    kstar_cuau->rab_format_graph_sys(0.06, 10, 0.3);
+    kstar_cuau->type_c_format(7.4, 0.05);
+
+    auto kstar_phi_cuau = new Particles("rab_phi_cuau", 4, n_phi_cuau, kBlue, 108);
+    kstar_phi_cuau->rab_format_graph(4, 4, 0.5);
+    kstar_phi_cuau->rab_format_graph_sys(0.06, 10, 0.3);
+    kstar_phi_cuau->type_c_format(7.34, 0.05);
+
+    auto kstar_pi0_cuau = new Particles("rab_pi0_cuau", 4, n_pi0_cuau, kRed, 91);
+    kstar_pi0_cuau->rab_format_graph(4, 4, 0.5);
+    kstar_pi0_cuau->rab_format_graph_sys(0.05, 10, 0.3);
+    kstar_pi0_cuau->type_c_format(7.28, 0.05);
+
+    auto kstar_eta_cuau = new Particles("rab_eta_cuau", 4, n_eta_cuau, kBlack, 95);
+    kstar_pi0_cuau->set_sys_errors();
+    kstar_eta_cuau->rab_format_graph(4, 4, 0.5);
+    kstar_eta_cuau->rab_format_graph_sys(0.06, 10, 0.3);
+    kstar_eta_cuau->type_c_format(4.09, 0.05);
+
+
+    auto legend = new TLegend(0.4, 0.8, 0.15, 1.03);
+    Format_Legend(legend, 62, 0.05, 0, 0, "");
+
+    auto c1 = new TCanvas("c1", "c1", 4000, 4000);
+    Format_Canvas(c1, 2, 2, 0);
+
+
+    legend->AddEntry(kstar_cuau->graph_legend(8), "K*^{0}", "p");
+    legend->AddEntry(kstar_phi_cuau->graph_legend(8), "phi", "p");
+    legend->AddEntry(kstar_pi0_cuau->graph_legend(8), "pi0", "p");
+    legend->AddEntry(kstar_eta_cuau->graph_legend(8), "eta", "p");
+
+    TString centr1[] = {"0-20%", "20-40%", "Peripheral", "MinBias"};
+    Double_t x_for_centr1[] = {3.73, 3.63, 3.35, 3.53};
+
+    for (int i = 0; i < 4; ++i) {
+        c1->cd(i + 1);
+        double par_sp_pal[] = {0.13, 0., 0.13, 0.0};
+        SetMarginPad(par_sp_pal);
+
+
+        double param_pad[] = {0.8, 7.6, 0.01, 1.9, 1, 1.15, 0.055, 0.06, 0, 504, 506, 1};
+        Format_Pad(param_pad, x_title, y_title);
+
+        if (i == 1) legend->Draw();
+
+        Double_t param_lat[] = {3.84, 0.1, 62, 0.08, 2};
+        kstar_cuau->latex_draw(param_lat, abcd[i]);
+
+        Double_t param_lat_name[] = {0.9, 1.76, 62, 0.049, 2};
+        if (i == 0) kstar_cuau->latex_draw(param_lat_name, "Cu+Au, #sqrt{s_{NN}}=200 GeV, |#eta|<0.35");
+
+
+        Double_t param_lat_name1[] = {x_for_centr1[i], 1.76, 62, 0.049, 2};
+        kstar_phi_cuau->latex_draw(param_lat_name1, centr1[i]);
+
+
+        double params[5] = {0.8, 7.6, 7, 1, 10};
+        unity->unity_level(params);
+
+
+        kstar_cuau->draw_all(i);
+        kstar_phi_cuau->draw_all(i);
+        kstar_pi0_cuau->draw_all(i);
+        kstar_eta_cuau->draw_all(i);
+
+    }
+
+    c1->Print("ppg_plots/rab_cuau_phi_pi_eta.png");
+}
+
 void plotter() {
-    plotter_rab_pal_phipAl_pipal();
+    plotter_rab_cuau_phi_pi_eta();
     // join_plot();
 }
 
