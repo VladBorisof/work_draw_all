@@ -1165,10 +1165,10 @@ void plotter_rab_cuau_phi_pi_eta() {
     kstar_pi0_cuau->set_sys_errors();
     kstar_eta_cuau->rab_format_graph(4, 4, 0.5);
     kstar_eta_cuau->rab_format_graph_sys(0.06, 10, 0.3);
-    kstar_eta_cuau->type_c_format(4.09, 0.05);
+    kstar_eta_cuau->type_c_format(7.23, 0.05);
 
 
-    auto legend = new TLegend(0.4, 0.8, 0.15, 1.03);
+    auto legend = new TLegend(0.4, 0.78, 0.15, 1.01);
     Format_Legend(legend, 62, 0.05, 0, 0, "");
 
     auto c1 = new TCanvas("c1", "c1", 4000, 4000);
@@ -1181,7 +1181,7 @@ void plotter_rab_cuau_phi_pi_eta() {
     legend->AddEntry(kstar_eta_cuau->graph_legend(8), "eta", "p");
 
     TString centr1[] = {"0-20%", "20-40%", "Peripheral", "MinBias"};
-    Double_t x_for_centr1[] = {3.73, 3.63, 3.35, 3.53};
+    Double_t x_for_centr1[] = {6.49, 6.3, 5.8, 6.18};
 
     for (int i = 0; i < 4; ++i) {
         c1->cd(i + 1);
@@ -1194,7 +1194,7 @@ void plotter_rab_cuau_phi_pi_eta() {
 
         if (i == 1) legend->Draw();
 
-        Double_t param_lat[] = {3.84, 0.1, 62, 0.08, 2};
+        Double_t param_lat[] = {6.7, 0.1, 62, 0.08, 2};
         kstar_cuau->latex_draw(param_lat, abcd[i]);
 
         Double_t param_lat_name[] = {0.9, 1.76, 62, 0.049, 2};
