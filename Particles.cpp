@@ -34,80 +34,114 @@ private:
     TGraphErrors *int_pline;
 
 public:
-    Particles(const TString& part="", int c = 0, int n = 0, Color_t col = 0, Style_t mark = 0);
+    Particles(const TString &part = "", int c = 0, int n = 0, Color_t col = 0, Style_t mark = 0);
+
     ~Particles();
 
     void get_rab_kstar_cuau();
+
     void get_rab_kstar_uu();
+
     void get_rab_kstar_cucu();
+
     void get_rab_kstar_heau();
+
     void get_rab_kstar_dau();
+
     void get_rab_kstar_pau();
+
     void get_rab_kstar_pal();
 
     void set_independent_var(int i);
 
     void get_rab_phi_cuau();
+
     void get_rab_phi_uu();
+
     void get_rab_phi_heau();
+
     void get_rab_phi_pau();
+
     void get_rab_phi_pal();
 
     void set_independent_var_phi(int i);
 
     void get_rab_pi0_cuau();
+
     void get_rab_pi0_uu();
+
     void get_rab_pi0_heau();
+
     void get_rab_pi0_pau();
+
     void get_rab_pi0_pal();
 
     void set_independent_var_pi0(int i);
 
     void get_rab_eta_cuau();
+
     void get_rab_eta_uu();
+
     void set_independent_var_eta(int i);
 
     void set_sys_errors();
 
     void get_integrated_rab();
+
     void int_format_graph(Float_t mark_size, Width_t line_wd, Float_t alpha);
+
     void int_format_graph_sys(double xe, Width_t line_wd, Float_t alpha);
 
     void int_draw_all();
+
     void int_draw();
+
     void int_draw_sys();
 
-    void latex_draw(double *param, const TString& text);
+    void latex_draw(double *param, const TString &text);
 
     // for R_AB
     void rab_format_graph(Float_t mark_size, Width_t line_wd, Float_t alpha);
+
     void rab_format_graph_sys(double xe, Width_t line_wd, Float_t alpha);
+
     void type_c_format(double x, double dx);
 
 
     // for Spectra
     void get_levy_data(double mark_size, double line_wd, double alpha);
+
     void sp_fit(double *koeff, int i);
+
     void sp_scale(const double *koeff);
+
     void data_levy_draw(int i);
+
     void sp_format_graph(double mark_size, double line_wd, double alpha);
+
     void sp_format_graph_sys(double xe, Width_t line_wd, Float_t alpha);
+
     void sp_draw(int i);
+
     void sp_draw_sys(int i);
 
     TGraphErrors *graph_legend(Size_t mark_size);
+
     TGraphErrors *graph_for_legend(Size_t mark_size, int i);
 
     void draw_all(int i);
+
     void Draw(int i);
+
     void DrawSys(int i);
+
     void DrawTypeC(int i);
 
     void unity_level(double *params);
 };
 
 
-Particles::Particles(const TString& part, int c, int n, Color_t col, Style_t mark) {
+Particles::Particles(const TString &part, int c, int n, Color_t col, Style_t mark) {
   _n = n;
   _cen = c;
   color = col;
@@ -122,7 +156,7 @@ Particles::Particles(const TString& part, int c, int n, Color_t col, Style_t mar
   } else if (part == "rab_kstar_heau") {
     set_independent_var(2);
     get_rab_kstar_heau();
-  }  else if (part == "rab_kstar_pau") {
+  } else if (part == "rab_kstar_pau") {
     set_independent_var(3);
     get_rab_kstar_pau();
   } else if (part == "rab_kstar_pal") {
@@ -134,10 +168,7 @@ Particles::Particles(const TString& part, int c, int n, Color_t col, Style_t mar
   } else if (part == "rab_kstar_dau") {
     set_independent_var(6);
     get_rab_kstar_dau();
-  }
-
-
-  else if (part == "rab_phi_cuau") {
+  } else if (part == "rab_phi_cuau") {
     set_independent_var_phi(0);
     get_rab_phi_cuau();
   } else if (part == "rab_phi_uu") {
@@ -152,10 +183,7 @@ Particles::Particles(const TString& part, int c, int n, Color_t col, Style_t mar
   } else if (part == "rab_phi_pal") {
     set_independent_var_phi(4);
     get_rab_phi_pal();
-  }
-
-
-  else if (part == "rab_pi0_cuau") {
+  } else if (part == "rab_pi0_cuau") {
     set_independent_var_pi0(0);
     get_rab_pi0_cuau();
   } else if (part == "rab_pi0_uu") {
@@ -170,14 +198,12 @@ Particles::Particles(const TString& part, int c, int n, Color_t col, Style_t mar
   } else if (part == "rab_pi0_pal") {
     set_independent_var_pi0(4);
     get_rab_pi0_pal();
-  }
-
-  else if (part == "rab_eta_cuau") {
-      set_independent_var_eta(0);
-      get_rab_eta_cuau();
+  } else if (part == "rab_eta_cuau") {
+    set_independent_var_eta(0);
+    get_rab_eta_cuau();
   } else if (part == "rab_eta_uu") {
-      set_independent_var_eta(1);
-      get_rab_eta_uu();
+    set_independent_var_eta(1);
+    get_rab_eta_uu();
   }
 
 };
@@ -365,7 +391,6 @@ void Particles::set_independent_var_pi0(int i) {
 }
 
 
-
 void Particles::get_rab_pi0_cuau() {
   for (int i = 0; i < 3; ++i) {
     for (int j = 0; j < _cen; ++j) {
@@ -418,41 +443,36 @@ void Particles::get_rab_pi0_pal() {
 
 
 void Particles::set_independent_var_eta(int i) {
-    /*for (int l = 0; l < _cen; ++l) {
-      typec[l] = typec_kstar[i][l];
-    }
-    for (int l = 0; l < _cen; ++l) {
-      npart[l] = npart_kstar[i][l];
-    }*/
-    for (int l = 0; l < _n; ++l) {
-        pt[l] = pt_eta[i][l];
-    }
+  /*for (int l = 0; l < _cen; ++l) {
+    typec[l] = typec_kstar[i][l];
+  }
+  for (int l = 0; l < _cen; ++l) {
+    npart[l] = npart_kstar[i][l];
+  }*/
+  for (int l = 0; l < _n; ++l) {
+    pt[l] = pt_eta[i][l];
+  }
 }
 
 void Particles::get_rab_eta_cuau() {
-    for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < _cen; ++j) {
-            for (int k = 0; k < _n; ++k) {
-                rab[i][j][k] = rab_eta_cuau[i][j][k];
-            }
-        }
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < _cen; ++j) {
+      for (int k = 0; k < _n; ++k) {
+        rab[i][j][k] = rab_eta_cuau[i][j][k];
+      }
     }
+  }
 }
 
 void Particles::get_rab_eta_uu() {
-    for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < _cen; ++j) {
-            for (int k = 0; k < _n; ++k) {
-                rab[i][j][k] = rab_eta_uu[i][j][k];
-            }
-        }
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < _cen; ++j) {
+      for (int k = 0; k < _n; ++k) {
+        rab[i][j][k] = rab_eta_uu[i][j][k];
+      }
     }
+  }
 }
-
-
-
-
-
 
 
 //== integrated_rab ==//
@@ -504,7 +524,7 @@ void Particles::int_draw_sys() {
   int_graph_sys->Draw("2P");
 }
 
-void Particles::latex_draw(Double_t *param, const TString& text) {
+void Particles::latex_draw(Double_t *param, const TString &text) {
   /*param
    * 0 - x
    * 1 - y
@@ -582,7 +602,7 @@ void Particles::DrawTypeC(int i) {
 void Particles::sp_format_graph(double mark_size, double line_wd, double alpha) {
   for (int i = 0; i < _cen; i++) {
     sp_graph[i] = new TGraphErrors(_n, pt, yields[0][i], nullptr, yields[1][i]);
-    Format_Graph(sp_graph[i], mark_style, mark_size, color+i, 0, line_wd, color+i, alpha);
+    Format_Graph(sp_graph[i], mark_style, mark_size, color + i, 0, line_wd, color + i, alpha);
   }
 }
 
@@ -593,8 +613,8 @@ void Particles::sp_format_graph_sys(double xe, Width_t line_wd, Float_t alpha) {
   }
   for (int i = 0; i < _cen; i++) {
     sp_graph_sys[i] = new TGraphErrors(_n, pt, yields[0][i], dx, yields[2][i]);
-    Format_Graph(sp_graph_sys[i], 1, 0.1, kWhite, 0, line_wd, color+i, alpha);
-    sp_graph_sys[i]->SetFillColorAlpha(color+i, alpha);
+    Format_Graph(sp_graph_sys[i], 1, 0.1, kWhite, 0, line_wd, color + i, alpha);
+    sp_graph_sys[i]->SetFillColorAlpha(color + i, alpha);
   }
 }
 
@@ -615,7 +635,7 @@ void Particles::get_levy_data(double mark_size, double line_wd, double alpha) {
       ratio_levy[i][j] = yields[0][i][j] / levy[i]->Eval(pt[j]);
     }
     sp_graph_ratio[i] = new TGraphErrors(_n, pt, ratio_levy[i]);
-    Format_Graph(sp_graph_ratio[i], mark_style, mark_size, color+i, 0, line_wd, color+i, alpha);
+    Format_Graph(sp_graph_ratio[i], mark_style, mark_size, color + i, 0, line_wd, color + i, alpha);
   }
 
 }
