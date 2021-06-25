@@ -1219,8 +1219,90 @@ void plotter_rab_cuau_phi_pi_eta() {
     c1->Print("ppg_plots/rab_cuau_phi_pi_eta.png");
 }
 
+void plotter_rab_uu_phi_pi_eta() {
+
+    auto unity_level = new Particles();
+    auto unity = new Particles();
+
+
+    TString x_title = "p_{T} [GeV/c]";
+    TString y_title = "R_{AB}";
+
+    auto kstar_uu = new Particles("rab_kstar_uu", 4, n_kstar_uu, kGreen, 107);
+    kstar_uu->rab_format_graph(4, 4, 0.7);
+    kstar_uu->rab_format_graph_sys(0.06, 10, 0.3);
+    kstar_uu->type_c_format(8.1, 0.05);
+
+    auto kstar_phi_uu = new Particles("rab_phi_uu", 4, n_phi_uu, kBlue, 108);
+    kstar_phi_uu->rab_format_graph(4, 4, 0.5);
+    kstar_phi_uu->rab_format_graph_sys(0.06, 10, 0.3);
+    kstar_phi_uu->type_c_format(8.04, 0.05);
+
+    auto kstar_pi0_uu = new Particles("rab_pi0_uu", 4, n_pi0_uu, kRed, 91);
+    kstar_pi0_uu->rab_format_graph(4, 4, 0.5);
+    kstar_pi0_uu->rab_format_graph_sys(0.05, 10, 0.3);
+    kstar_pi0_uu->type_c_format(7.98, 0.05);
+
+    auto kstar_eta_uu = new Particles("rab_eta_uu", 4, n_eta_uu, kBlack, 95);
+    kstar_pi0_uu->set_sys_errors();
+    kstar_eta_uu->rab_format_graph(4, 4, 0.5);
+    kstar_eta_uu->rab_format_graph_sys(0.06, 10, 0.3);
+    kstar_eta_uu->type_c_format(7.92, 0.05);
+
+
+    auto legend = new TLegend(0.4, 0.78, 0.15, 1.01);
+    Format_Legend(legend, 62, 0.05, 0, 0, "");
+
+    auto c1 = new TCanvas("c1", "c1", 4000, 4000);
+    Format_Canvas(c1, 2, 2, 0);
+
+
+    legend->AddEntry(kstar_uu->graph_legend(8), "K*^{0}", "p");
+    legend->AddEntry(kstar_phi_uu->graph_legend(8), "phi", "p");
+    legend->AddEntry(kstar_pi0_uu->graph_legend(8), "pi0", "p");
+    legend->AddEntry(kstar_eta_uu->graph_legend(8), "eta", "p");
+
+    TString centr1[] = {"0-20%", "20-40%", "Peripheral", "MinBias"};
+    Double_t x_for_centr1[] = {7.05, 6.85, 6.3, 6.68};
+
+    for (int i = 0; i < 4; ++i) {
+        c1->cd(i + 1);
+        double par_sp_pal[] = {0.13, 0., 0.13, 0.0};
+        SetMarginPad(par_sp_pal);
+
+
+        double param_pad[] = {0.8, 8.3, 0.01, 1.9, 1, 1.15, 0.055, 0.06, 0, 504, 506, 1};
+        Format_Pad(param_pad, x_title, y_title);
+
+        if (i == 1) legend->Draw();
+
+        Double_t param_lat[] = {7.6, 0.1, 62, 0.06, 2};
+        kstar_uu->latex_draw(param_lat, abcd[i]);
+
+        Double_t param_lat_name[] = {0.9, 1.76, 62, 0.049, 2};
+        if (i == 0) kstar_uu->latex_draw(param_lat_name, "U+U, #sqrt{s_{NN}}=200 GeV, |#eta|<0.35");
+
+
+        Double_t param_lat_name1[] = {x_for_centr1[i], 1.76, 62, 0.049, 2};
+        kstar_phi_uu->latex_draw(param_lat_name1, centr1[i]);
+
+
+        double params[5] = {0.8, 8.3, 7, 1, 10};
+        unity->unity_level(params);
+
+
+        kstar_uu->draw_all(i);
+        kstar_phi_uu->draw_all(i);
+        kstar_pi0_uu->draw_all(i);
+        kstar_eta_uu->draw_all(i);
+
+    }
+
+    c1->Print("ppg_plots/rab_uu_phi_pi_eta.png");
+}
+
 void plotter() {
-    plotter_rab_cuau_phi_pi_eta();
+    plotter_rab_uu_phi_pi_eta();
     // join_plot();
 }
 
