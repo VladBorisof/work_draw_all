@@ -314,10 +314,10 @@ void Particles::get_rab_kstar_dau() {
 
 // phi
 void Particles::set_independent_var_phi(int i) {
-  /*for (int l = 0; l < _cen; ++l) {
-    typec[l] = typec_kstar[i][l];
-  }
   for (int l = 0; l < _cen; ++l) {
+    typec[l] = typec_phi[i][l];
+  }
+  /*for (int l = 0; l < _cen; ++l) {
     npart[l] = npart_kstar[i][l];
   }*/
   for (int l = 0; l < _n; ++l) {
@@ -379,10 +379,10 @@ void Particles::get_rab_phi_pal() {
 
 // pi0
 void Particles::set_independent_var_pi0(int i) {
-  /*for (int l = 0; l < _cen; ++l) {
-    typec[l] = typec_kstar[i][l];
-  }
   for (int l = 0; l < _cen; ++l) {
+    typec[l] = typec_pi0[i][l];
+  }
+  /*for (int l = 0; l < _cen; ++l) {
     npart[l] = npart_kstar[i][l];
   }*/
   for (int l = 0; l < _n; ++l) {
@@ -443,10 +443,10 @@ void Particles::get_rab_pi0_pal() {
 
 
 void Particles::set_independent_var_eta(int i) {
-  /*for (int l = 0; l < _cen; ++l) {
-    typec[l] = typec_kstar[i][l];
-  }
   for (int l = 0; l < _cen; ++l) {
+    typec[l] = typec_eta[i][l];
+  }
+  /*for (int l = 0; l < _cen; ++l) {
     npart[l] = npart_kstar[i][l];
   }*/
   for (int l = 0; l < _n; ++l) {

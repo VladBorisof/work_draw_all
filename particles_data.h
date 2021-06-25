@@ -51,8 +51,8 @@ double pt_phi[num_of_syst][12] = {
 };
 
 double typec_phi[num_of_syst][5] = {
-        {0.09, 0.095, 0.125, 0.2}, //cuau
-        {0.15, 0.13,}, // uu
+        {0.09, 0.095, 0.125, 0.195}, //cuau
+        {0.15, 0.13, 0.1, 0.16}, // uu
         {}, // heau
         {}, // pau
         {} // pal
@@ -69,7 +69,11 @@ double pt_pi0[num_of_syst][14] = {
 };
 
 double typec_pi0[num_of_syst][5] = {
-        {}, //cuau
+        {0.1, 0.12, 0.145, 0.22}, // cuau
+        {0.14, 0.115, 0.12, 0.135}, // uu
+        {}, // heau
+        {}, // pau
+        {}, // pal
 };
 
 double pt_eta[2][15] = {
@@ -78,7 +82,8 @@ double pt_eta[2][15] = {
 };
 
 double typec_eta[num_of_syst][5] = {
-        {}, //cuau
+        {0.08, 0.09, 0.18, 0.2}, //cuau
+        {0.15, 0.12, 0.11, 0.14}, // uu
 };
 
 double npart_kstar[num_of_syst][5] = {
