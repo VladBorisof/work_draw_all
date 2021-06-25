@@ -1231,23 +1231,23 @@ void plotter_rab_uu_phi_pi_eta() {
     auto kstar_uu = new Particles("rab_kstar_uu", 4, n_kstar_uu, kGreen, 107);
     kstar_uu->rab_format_graph(4, 4, 0.7);
     kstar_uu->rab_format_graph_sys(0.06, 10, 0.3);
-    kstar_uu->type_c_format(8.1, 0.05);
+    kstar_uu->type_c_format(7.8, 0.05);
 
     auto kstar_phi_uu = new Particles("rab_phi_uu", 4, n_phi_uu, kBlue, 108);
     kstar_phi_uu->rab_format_graph(4, 4, 0.5);
     kstar_phi_uu->rab_format_graph_sys(0.06, 10, 0.3);
-    kstar_phi_uu->type_c_format(8.04, 0.05);
+    kstar_phi_uu->type_c_format(7.9, 0.05);
 
     auto kstar_pi0_uu = new Particles("rab_pi0_uu", 4, n_pi0_uu, kRed, 91);
     kstar_pi0_uu->rab_format_graph(4, 4, 0.5);
     kstar_pi0_uu->rab_format_graph_sys(0.05, 10, 0.3);
-    kstar_pi0_uu->type_c_format(7.98, 0.05);
+    kstar_pi0_uu->type_c_format(8, 0.05);
 
     auto kstar_eta_uu = new Particles("rab_eta_uu", 4, n_eta_uu, kBlack, 95);
     kstar_pi0_uu->set_sys_errors();
     kstar_eta_uu->rab_format_graph(4, 4, 0.5);
     kstar_eta_uu->rab_format_graph_sys(0.06, 10, 0.3);
-    kstar_eta_uu->type_c_format(7.92, 0.05);
+    kstar_eta_uu->type_c_format(8.1, 0.05);
 
 
     auto legend = new TLegend(0.4, 0.78, 0.15, 1.01);
