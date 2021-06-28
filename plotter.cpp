@@ -1203,7 +1203,6 @@ void plotter_rab_cuau_kstar_phi_pi0_eta() {
 
 void plotter_rab_uu_kstar_phi_pi0_eta() {
 
-  auto unity_level = new Particles();
   auto unity = new Particles();
 
 
@@ -1283,29 +1282,29 @@ void plotter_rab_uu_kstar_phi_pi0_eta() {
   c1->Print("ppg_plots/rab_uu_phi_pi_eta.png");
 }
 
-void plotter_for_ppg_integrated_rab() {
+void plotter_for_ppg_integrated_rab_heavy() {
   // 2 - 5 GeV/c
   auto kstar_cuau = new Particles("rab_kstar_cuau", 5, n_kstar_cuau, kGreen, 107);
   kstar_cuau->get_integrated_rab(0, 8);
-  kstar_cuau->int_format_graph(4, 4, 0.5);
-  kstar_cuau->int_format_graph_sys(5, 10, 0.9);
+  kstar_cuau->int_format_graph(4, 4, 0.8);
+  kstar_cuau->int_format_graph_sys(4, 10, 0.3);
 
-  auto kstar_uu = new Particles("rab_kstar_uu", 4, n_kstar_uu, kRed, 107);
-  kstar_uu->get_integrated_rab(2, 9);
-  kstar_uu->int_format_graph(4, 4, 0.5);
-  kstar_uu->int_format_graph_sys(5, 10, 0.9);
+  auto kstar_uu = new Particles("rab_kstar_uu", 3, n_kstar_uu, kRed, 107);
+  kstar_uu->get_integrated_rab(2, 8);
+  kstar_uu->int_format_graph(4, 4, 0.8);
+  kstar_uu->int_format_graph_sys(4, 10, 0.3);
 
   auto kstar_cucu = new Particles("rab_kstar_cucu", 5, n_kstar_cucu, kBlue, 23);
   kstar_cucu->get_integrated_rab(2, 10);
-  kstar_cucu->int_format_graph(7, 10, 0.9);
-  kstar_cucu->int_format_graph_sys(5, 10, 0.9);
+  kstar_cucu->int_format_graph(7, 10, 0.5);
+  kstar_cucu->int_format_graph_sys(4, 10, 0.3);
 
   auto legend = new TLegend(0.4, 0.78, 0.15, 1.01);
   Format_Legend(legend, 62, 0.05, 0, 0, "");
 
-  legend->AddEntry(kstar_cuau->graph_legend(8), "K*^{0}", "p");
-  legend->AddEntry(kstar_uu->graph_legend(8), "phi", "p");
-  legend->AddEntry(kstar_cucu->graph_legend(8), "pi0", "p");
+  legend->AddEntry(kstar_cuau->graph_legend(8), "CuAu", "p");
+  legend->AddEntry(kstar_uu->graph_legend(8), "UU", "p");
+  legend->AddEntry(kstar_cucu->graph_legend(8), "CuCu", "p");
 
 
   auto c2 = new TCanvas("c2", "c2", 4000, 4000);
@@ -1314,7 +1313,7 @@ void plotter_for_ppg_integrated_rab() {
   double par[4] = {0.1, 0.0, 0.1, 0.0};
   SetMarginPad(par);
 
-  double param_pad[] = {0.1, 349, 0.2, 2.1, 0.9, 0.9, 0.05, 0.05, 0, 504, 506, 1};
+  double param_pad[] = {0.1, 220, 0.2, 2.1, 0.9, 0.9, 0.05, 0.05, 0, 504, 506, 1};
   TString pad_title_x = "N_{part}";
   TString pad_title_y = "#LTR_{AB}#GT";
   Format_Pad(param_pad, pad_title_x, pad_title_y);
@@ -1323,12 +1322,79 @@ void plotter_for_ppg_integrated_rab() {
   kstar_uu->int_draw_all();
   kstar_cucu->int_draw_all();
 
+  legend->Draw();
+
   c2->Print("ppg_plots/int_rab_heavy.png");
 
 }
 
+
+void plotter_for_ppg_integrated_rab_small() {
+  // 2 - 5 GeV/c
+  auto unity = new Particles();
+
+  auto kstar_heau = new Particles("rab_kstar_heau", 5, n_kstar_cuau, kGreen, 107);
+  kstar_heau->get_integrated_rab(2, 9);
+  kstar_heau->int_format_graph(4, 4, 0.8);
+  kstar_heau->int_format_graph_sys(0.5, 10, 0.3);
+
+  auto kstar_pau = new Particles("rab_kstar_pau", 4, n_kstar_uu, kRed, 107);
+  kstar_pau->get_integrated_rab(2, 8);
+  kstar_pau->int_format_graph(4, 4, 0.8);
+  kstar_pau->int_format_graph_sys(0.5, 10, 0.3);
+
+  auto kstar_pal = new Particles("rab_kstar_pal", 5, n_kstar_cucu, kBlue, 23);
+  kstar_pal->get_integrated_rab(2, 6);
+  kstar_pal->int_format_graph(7, 10, 0.5);
+  kstar_pal->int_format_graph_sys(0.2, 10, 0.3);
+
+  auto kstar_dau = new Particles("rab_kstar_dau", 5, n_kstar_cucu, kMagenta, 23);
+  kstar_dau->get_integrated_rab(2, 10);
+  kstar_dau->int_format_graph(7, 10, 0.5);
+  kstar_dau->int_format_graph_sys(0.5, 10, 0.3);
+
+  auto kstar_cucu = new Particles("rab_kstar_cucu", 5, n_kstar_cucu, kBlack, 23);
+  kstar_cucu->get_integrated_rab(2, 10);
+  kstar_cucu->int_format_graph(7, 10, 0.5);
+  kstar_cucu->int_format_graph_sys(0.2, 10, 0.3);
+
+  auto legend = new TLegend(0.7, 0.78, 0.95, 1.01);
+  Format_Legend(legend, 62, 0.05, 0, 0, "");
+
+  legend->AddEntry(kstar_heau->graph_legend(8), "HeAu", "p");
+  legend->AddEntry(kstar_pau->graph_legend(8), "pAu", "p");
+  legend->AddEntry(kstar_pal->graph_legend(8), "pAl", "p");
+  legend->AddEntry(kstar_dau->graph_legend(8), "dAu", "p");
+  legend->AddEntry(kstar_cucu->graph_legend(8), "dAu", "p");
+
+  auto c2 = new TCanvas("c2", "c2", 4000, 4000);
+  Format_Canvas(c2, 1, 1, 0);
+
+  double par[4] = {0.1, 0.0, 0.1, 0.0};
+  SetMarginPad(par);
+
+  double param_pad[] = {0.1, 29, 0.2, 2.1, 0.9, 0.9, 0.05, 0.05, 0, 504, 506, 1};
+  TString pad_title_x = "N_{part}";
+  TString pad_title_y = "#LTR_{AB}#GT";
+  Format_Pad(param_pad, pad_title_x, pad_title_y);
+
+  double params[5] = {param_pad[0], param_pad[1], 7, 1, 10};
+  unity->unity_level(params);
+
+  kstar_heau->int_draw_all();
+  kstar_pau->int_draw_all();
+  kstar_pal->int_draw_all();
+  kstar_dau->int_draw_all();
+  kstar_cucu->int_draw_all();
+
+  legend->Draw();
+
+  c2->Print("ppg_plots/int_rab_small.png");
+
+}
+
 void plotter() {
-  plotter_for_ppg_integrated_rab();
+  plotter_for_ppg_integrated_rab_small();
   // join_plot();
 }
 
