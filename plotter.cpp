@@ -902,7 +902,7 @@ void plotter_rab_for_ppg_small_systems() {
 }
 
 
-void plotter_rab_heau_phiHeAu_piHeAu() {
+void plotter_rab_heau_kstar_phi_pi0() {
 
     auto unity_level = new Particles();
     auto unity = new Particles();
@@ -951,8 +951,6 @@ void plotter_rab_heau_phiHeAu_piHeAu() {
         double par_sp_pal[] = {0.13, 0., 0.13, 0.0};
         SetMarginPad(par_sp_pal);
 
-
-
         double param_pad[] = {0.8, 8.2, 0.01, 1.9, 1, 1.15, 0.055, 0.06, 0, 504, 506, 1};
         Format_Pad(param_pad, x_title, y_title);
 
@@ -987,7 +985,7 @@ void plotter_rab_heau_phiHeAu_piHeAu() {
 
 }
 
-void plotter_rab_pau_phipAu_pipau() {
+void plotter_rab_pau_kstar_phi_pi0() {
 
     auto unity_level = new Particles();
     auto unity = new Particles();
@@ -1062,7 +1060,7 @@ void plotter_rab_pau_phipAu_pipau() {
 }
 
 
-void plotter_rab_pal_phipAl_pipal() {
+void plotter_rab_pal_kstar_phi_pi0() {
 
     auto unity_level = new Particles();
     auto unity = new Particles();
@@ -1137,7 +1135,7 @@ void plotter_rab_pal_phipAl_pipal() {
     c1->Print("ppg_plots/rab_pal_phipAl_pipal_1.png");
 }
 
-void plotter_rab_cuau_phi_pi_eta() {
+void plotter_rab_cuau_kstar_phi_pi0_eta() {
 
     auto unity_level = new Particles();
     auto unity = new Particles();
@@ -1219,7 +1217,7 @@ void plotter_rab_cuau_phi_pi_eta() {
     c1->Print("ppg_plots/rab_cuau_phi_pi_eta.png");
 }
 
-void plotter_rab_uu_phi_pi_eta() {
+void plotter_rab_uu_kstar_phi_pi0_eta() {
 
     auto unity_level = new Particles();
     auto unity = new Particles();
@@ -1301,8 +1299,17 @@ void plotter_rab_uu_phi_pi_eta() {
     c1->Print("ppg_plots/rab_uu_phi_pi_eta.png");
 }
 
+void plotter_integrated_rab() {
+  // 2 - 5 GeV/c
+  auto kstar_cuau = new Particles("rab_kstar_cuau", 5, n_kstar_cuau, kGreen, 107);
+  kstar_cuau->get_integrated_rab(0,8);
+
+  auto kstar_uu = new Particles("rab_kstar_uu", 4, n_kstar_uu, kRed, 107);
+  kstar_uu->get_integrated_rab(2, 9);
+}
+
 void plotter() {
-    plotter_rab_uu_phi_pi_eta();
+    plotter_rab_uu_kstar_phi_pi0_eta();
     // join_plot();
 }
 
