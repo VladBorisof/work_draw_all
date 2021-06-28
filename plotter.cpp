@@ -1365,7 +1365,7 @@ void plotter_for_ppg_integrated_rab_small() {
   legend->AddEntry(kstar_pau->graph_legend(8), "pAu", "p");
   legend->AddEntry(kstar_pal->graph_legend(8), "pAl", "p");
   legend->AddEntry(kstar_dau->graph_legend(8), "dAu", "p");
-  legend->AddEntry(kstar_cucu->graph_legend(8), "dAu", "p");
+  legend->AddEntry(kstar_cucu->graph_legend(8), "CuCu", "p");
 
   auto c2 = new TCanvas("c2", "c2", 4000, 4000);
   Format_Canvas(c2, 1, 1, 0);
