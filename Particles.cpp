@@ -86,7 +86,7 @@ public:
 
     void set_sys_errors();
 
-    void get_integrated_rab();
+    void get_integrated_rab(int start, int final);
 
     void int_format_graph(Float_t mark_size, Width_t line_wd, Float_t alpha);
 
@@ -476,10 +476,10 @@ void Particles::get_rab_eta_uu() {
 
 
 //== integrated_rab ==//
-void Particles::get_integrated_rab() {
+void Particles::get_integrated_rab(int start, int final) {
   for (int i = 0; i < _cen; ++i) {
     double w0 = 0, totw0 = 0, i_r = 0, i_r_stat = 0, i_r_syst = 0;
-    for (int j = 0; j < _n; ++j) {
+    for (int j = start; j < final; ++j) {
       w0 = 1.0 / pow(rab[1][i][j], 2);
       totw0 += w0;
       i_r += w0 * rab[0][i][j];
