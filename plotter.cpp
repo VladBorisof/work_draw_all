@@ -336,17 +336,18 @@ void plotter_spectra_for_ppg_small() {
           {1.1, 6.2, 1.1e-11, 1e5 - 1, 0.95, 1.4, 0.05, 0.05, 1, 504, 504, 1}
   };
   TString name_cen_small[3][5] = {
-          {"0-20%", "20-40%", "40-72%", "0-72%"},
-          {"0-20%", "20-40%", "40-84%", "0-84%"},
-          {"0-20%", "20-40%", "40-60%", "60-88%", "0-88%"}
+          {"  0-20%", "20-40%", "40-72%", "  0-72%"},
+          {"  0-20%", "20-40%", "40-84%", "  0-84%"},
+          {"  0-20%", "20-40%", "40-60%", "60-88%", "  0-88%"}
   };
 
 
-  kstar_small[0] = new Particles("rab_kstar_pal", 4, n_kstar_pal, kMagenta);
+  kstar_small[0] = new Particles("rab_kstar_pal", 4, n_kstar_pal, kMagenta, 21);
   coeff_scale_small[0] = {{1,  1e-1, 1e-2, 1e2},
-                          {"", "",   "",   "", ""}};
+                          {"10^{0}", "10^{-1}",   "10^{-2}",   "10^{2}"}};
+
   kstar_small[0]->sp_scale(coeff_scale_small[0].coeff);
-  kstar_small[0]->sp_format_graph(5, 15, 0.9);
+  kstar_small[0]->sp_format_graph(4, 15, 0.9);
   kstar_small[0]->sp_format_graph_sys(0.1, 5, 0.5);
 
   name_fig[0] = new TLatex(1.5, 1e4, "K*^{0} in pAl, #sqrt{s_{NN}} = 200 GeV, |#eta|<0.35");
@@ -357,11 +358,11 @@ void plotter_spectra_for_ppg_small() {
 
 
   // для pAu вставлены спектры уже домноженные на коэффициенты десятки
-  kstar_small[1] = new Particles("rab_kstar_pau", 4, n_kstar_pau, kViolet);
+  kstar_small[1] = new Particles("rab_kstar_pau", 4, n_kstar_pau, kViolet, 21);
   coeff_scale_small[1] = {{1, 1e0, 1e0, 1e0},
-                          {}};
+                          {"10^{0}", "10^{-1}",   "10^{-2}",   "10^{2}"}};
   kstar_small[1]->sp_scale(coeff_scale_small[1].coeff);
-  kstar_small[1]->sp_format_graph(5, 15, 0.9);
+  kstar_small[1]->sp_format_graph(4, 15, 0.9);
   kstar_small[1]->sp_format_graph_sys(0.1, 5, 0.5);
 
   name_fig[1] = new TLatex(1.5, 1e4, "K*^{0} in pAu, #sqrt{s_{NN}} = 200 GeV, |#eta|<0.35");
@@ -371,11 +372,11 @@ void plotter_spectra_for_ppg_small() {
   Format_Legend(leg[1], 42, 0.04, 0, 0, "");
 
 
-  kstar_small[2] = new Particles("rab_kstar_heau", 5, n_kstar_heau, kBlue);
+  kstar_small[2] = new Particles("rab_kstar_heau", 5, n_kstar_heau, kBlue, 21);
   coeff_scale_small[2] = {{1, 1e-1, 1e-2, 1e-3, 1e2},
-                          {}};
+                          {"10^{0}", "10^{-1}",   "10^{-2}",   "10^{-3}", "10^{2}"}};
   kstar_small[2]->sp_scale(coeff_scale_small[2].coeff);
-  kstar_small[2]->sp_format_graph(5, 15, 0.9);
+  kstar_small[2]->sp_format_graph(4, 15, 0.9);
   kstar_small[2]->sp_format_graph_sys(0.1, 5, 0.5);
 
   name_fig[2] = new TLatex(1.5, 1e4, "K*^{0} in ^{3}HeAu, #sqrt{s_{NN}} = 200 GeV, |#eta|<0.35");
@@ -391,6 +392,14 @@ void plotter_spectra_for_ppg_small() {
           {1.55 - 0.1,  5.8 + 0.1,  0.0455202, 10.0277, 0.252345}
   };
 
+
+  double koeff_levy_small_2[3][5] = {
+          {1.55 - 0.03, 2.8 + 0.03, 0.0455202, 10.0277, 0.252345},
+          {1.55 - 0.03, 4.4 + 0.03, 0.0455202, 10.0277, 0.252345},
+          {1.55 - 0.1,  5.8 + 0.1,  0.0455202, 10.0277, 0.252345}
+  };
+
+
   auto c1 = new TCanvas("c1", "c1", 6000, 2000);
   Format_Canvas(c1, 3, 1, 0);
 
@@ -399,20 +408,28 @@ void plotter_spectra_for_ppg_small() {
   Format_Pad(param_pad_sp_small[0], sp_pad_title_x, sp_pad_title_y);
   for (int i = 0; i < 4; ++i) {
     kstar_small[0]->sp_draw(i);
-    kstar_small[0]->sp_fit(koeff_levy_small[0], i);
     kstar_small[0]->sp_draw_sys(i);
-    /* leg[0]->AddEntry(kstar_small[0]->graph_for_legend(5, i), name_cen_small[0][i] + 8coeff_scale_small[0].name_coeff[i]*, "p");
-    leg[1]->AddEntry(kstar_small[1]->graph_for_legend(5, i), name_cen_small[1][i] + coeff_scale_small[1].name_coeff[i],"p");
-    leg[2]->AddEntry(kstar_small[2]->graph_for_legend(5, i), name_cen_small[2][i] + coeff_scale_small[2].name_coeff[i],"p");
-    */
   }
 
+   kstar_small[0]->sp_fit(koeff_levy_small[0], 3);
 
-
-  /*for (int i = 4; i < 5; ++i) {
-    leg[2]->AddEntry(kstar_small[2]->graph_for_legend(5, i), name_cen_small[2][i] + coeff_scale_small[2].name_coeff[i],"p");
+  for (int i = 0; i < 3; ++i) {
+    kstar_small[0]->sp_fit(koeff_levy_small_2[0], i);
   }
-   */
+
+  leg[0]->AddEntry(kstar_small[0]->graph_for_legend(5, 3), name_cen_small[0][3] + "x" +coeff_scale_small[0].name_coeff[3], "p");
+  leg[1]->AddEntry(kstar_small[1]->graph_for_legend(5, 3), name_cen_small[1][3] + "x" + coeff_scale_small[1].name_coeff[3],"p");
+  leg[2]->AddEntry(kstar_small[2]->graph_for_legend(5, 4), name_cen_small[2][4] + "x" +coeff_scale_small[2].name_coeff[4],"p");
+
+  for (int i = 0; i < 3; ++i) {
+    leg[0]->AddEntry(kstar_small[0]->graph_for_legend(5, i), name_cen_small[0][i] + "x" + coeff_scale_small[0].name_coeff[i], "p");
+    leg[1]->AddEntry(kstar_small[1]->graph_for_legend(5, i), name_cen_small[1][i] + "x" + coeff_scale_small[1].name_coeff[i],"p");
+  }
+
+  for (int i = 0; i < 4; ++i) {
+    leg[2]->AddEntry(kstar_small[2]->graph_for_legend(5, i), name_cen_small[2][i] + "x" + coeff_scale_small[2].name_coeff[i],"p");
+  }
+
   phenix[0]->Draw();
   name_fig[0]->Draw();
   leg[0]->Draw();
