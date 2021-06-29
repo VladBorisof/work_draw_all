@@ -460,7 +460,7 @@ void plotter_spectra_for_ppg_small() {
   phenix[2]->Draw();
   name_fig[2]->Draw();
 
-  c1->Print("ppg_plots/spectra_small.png");
+  c1->Print("~/ppg_plots/spectra_small.png");
 
 }
 
