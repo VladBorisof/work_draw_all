@@ -128,6 +128,7 @@ public:
     TGraphErrors *graph_legend(Size_t mark_size);
 
     TGraphErrors *graph_for_legend(Size_t mark_size, int i);
+    TF1 *levy_for_legend(Size_t line_wd);
 
     void draw_all(int i);
 
@@ -627,6 +628,12 @@ void Particles::sp_fit(double *koeff, int i) {
   sp_graph[i]->Fit("name_levy", "M", "", koeff[0], koeff[1]);
 
 
+}
+
+TF1 *Particles::levy_for_legend(Size_t line_wd){
+  auto levy1 = new TF1;
+  levy1->SetLineWidth(line_wd);
+  return levy1;
 }
 
 void Particles::get_levy_data(double mark_size, double line_wd, double alpha) {
