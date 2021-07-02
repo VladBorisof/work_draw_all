@@ -173,7 +173,7 @@ void Format_Latex(TLatex *lat, int font = 0, Float_t size = 0, Float_t line_wd =
 
 void
 Format_Legend(TLegend *leg, int font = 0, Float_t size = 0, Float_t line_wd = 0, Float_t style = 0, TString name = "") {
-  leg->SetHeader(name, "");
+  leg->SetHeader(name, "c");
   leg->SetTextFont(font);
   leg->SetTextSize(size);
   leg->SetLineWidth(line_wd);

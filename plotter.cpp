@@ -183,14 +183,18 @@ struct coeff_scale_sp {
 
 void plotter_spectra_for_ppg_heavy() {
   // general declaration
+  Particles *levy_fit;
   TString sp_pad_title_x = "p_{T} [GeV/c]";
   TString sp_pad_title_y = "1/2#pi 1/p_{T} d^{2}N/dydp_{T} [(GeV/c)^{-2}]";
   TLatex *phenix[2];
-  phenix[0] = new TLatex(1.5, 1e3, "PHENIX");
+  phenix[0] = new TLatex(1.9, 80, "PHENIX");
   phenix[1] = new TLatex(1.5, 1e3, "PHENIX");
-  TLatex *name_fig[2];
-  TLegend *leg[2];
+  TLatex *name_fig[3];
+  TLegend *leg[3];
 
+  levy_fit = new Particles("rab_kstar_pal", 0,  0, 0);
+  leg[2] = new TLegend(0.67, 0.11, 0.97, 0.36);
+  Format_Legend(leg[2], 42, 0.04, 0, 0, "");
 
   // special for Cu+Au spectra declaration
   auto kstar_cuau_sp = new Particles("rab_kstar_cuau", 5, n_kstar_cuau, kMagenta, 21);
@@ -200,10 +204,12 @@ void plotter_spectra_for_ppg_heavy() {
   kstar_cuau_sp->sp_scale(coeff_for_cuau.coeff);
   kstar_cuau_sp->sp_format_graph(4, 15, 0.9);
   kstar_cuau_sp->sp_format_graph_sys(0.1, 5, 0.5);
-  name_fig[0] = new TLatex(1.5, 8e3, "K*^{0} in CuAu, #sqrt{s_{NN}} = 200 GeV, |#eta|<0.35");
+  name_fig[0] = new TLatex(1.9, 8e3, "K*^{0} in Cu+Au, #sqrt{s_{NN}} = 200 GeV");
   Format_Latex(name_fig[0], 62, 0.045, 2);
-  leg[0] = new TLegend(0.67, 0.2, 0.97, 0.6);
-  Format_Legend(leg[0], 62, 0.04, 0, 0, "");
+  name_fig[2] = new TLatex(1.9, 8e2, "|#eta|<0.35");
+  Format_Latex(name_fig[2], 62, 0.045, 2);
+  leg[0] = new TLegend( 0.67, 0.45, 0.97, 0.75);
+  Format_Legend(leg[0], 42, 0.04, 0, 0, "   Cu+Au");
   TString name_cen_cuau[] = {"  0-20%", "20-40%", "40-60%", "60-80%", "  0-93%"};
   double par_sp_cuau[] = {0.15, 0.0, 0.1, 0.};
   double param_pad_sp_cuau[] = {1.1, 6.5, 1.1e-11, 1e5 - 1, 0.95, 1.4, 0.05, 0.05, 1, 504, 504, 1};
@@ -218,10 +224,10 @@ void plotter_spectra_for_ppg_heavy() {
   kstar_uu->sp_format_graph(6, 15, 0.9);
   kstar_uu->sp_format_graph_sys(0.08, 5, 0.5);
 
-  name_fig[1] = new TLatex(1.5, 8e3, "K*^{0} in UU, #sqrt{s_{NN}} = 193 GeV, |#eta|<0.35");
+  name_fig[1] = new TLatex(1.5, 8e3, "K*^{0} in U+U, #sqrt{s_{NN}} = 193 GeV");
   Format_Latex(name_fig[1], 62, 0.045, 2);
-  leg[1] = new TLegend(0.67, 0.6, 0.97, 0.9);
-  Format_Legend(leg[1], 62, 0.04, 0, 0, "");
+  leg[1] = new TLegend(0.67, 0.2, 0.97, 0.45);
+  Format_Legend(leg[1], 42, 0.04, 0, 0, "U+U");
   TString name_cen_uu[] = {"  0-20%", "20-40%", "40-60%", "  0-80%"};
   double par_sp_uu[] = {0.15, 0., 0.1, 0.0};
   double param_pad_sp_uu[] = {1.1, 6.5, 1.1e-11, 1e5 - 1, 0.95, 1.4, 0.05, 0.05, 1, 504, 504, 1};
@@ -248,6 +254,7 @@ void plotter_spectra_for_ppg_heavy() {
 
   phenix[0]->Draw();
   name_fig[0]->Draw();
+  name_fig[2]->Draw();
 
 
   c1->cd(2);
@@ -265,13 +272,15 @@ void plotter_spectra_for_ppg_heavy() {
   for (int j = 0; j <3; j++) {
     leg[1]->AddEntry(kstar_uu->graph_for_legend(6, j), name_cen_uu[j] + "x" + coeff_for_uu.name_coeff[j], "p");
   }
+  leg[2]->AddEntry( levy_fit->levy_for_legend(10),  "Levy fit" , "l");
 
   leg[0]->Draw();
   leg[1]->Draw();
+  leg[2]->Draw();
   name_fig[1]->Draw();
-  phenix[1]->Draw();
+  //phenix[1]->Draw();
 
-  c1->Print("ppg_plots/spectra_cuau_uu.png");
+  c1->Print("~/ppg_plots/spectra_cuau_uu_1.png");
 
   //
   auto levelwide = new TLine();
@@ -306,7 +315,7 @@ void plotter_spectra_for_ppg_heavy() {
 
   levelwide->DrawLine(param_pad_ratio_uu[0], 1, param_pad_ratio_uu[1], 1);
 
-  c2->Print("ratio_cuau_uu.png");
+  // c2->Print("ratio_cuau_uu.png");
 
 
 }
@@ -319,11 +328,11 @@ void plotter_spectra_for_ppg_small() {
   TString sp_pad_title_x = "p_{T} [GeV/c]";
   TString sp_pad_title_y = "1/2#pi 1/p_{T} d^{2}N/dydp_{T} [(GeV/c)^{-2}]";
   TLatex *phenix[3];
-  phenix[0] = new TLatex(1.5, 1e3, "PHENIX");
+  phenix[0] = new TLatex(1.45, 80, "PHENIX");
   phenix[1] = new TLatex(1.5, 1e3, "PHENIX");
   phenix[2] = new TLatex(1.5, 1e3, "PHENIX");
   //auto phenix = new TLatex(1.5, 100, "PHENIX");
-  TLatex *name_fig[3];
+  TLatex *name_fig[4];
   TLegend *leg[3];
   coeff_scale_sp coeff_scale_small[3];
   double par_sp_small[3][4] = {
@@ -353,11 +362,14 @@ void plotter_spectra_for_ppg_small() {
   kstar_small[0]->sp_format_graph(4, 15, 0.9);
   kstar_small[0]->sp_format_graph_sys(0.1, 5, 0.5);
 
-  name_fig[0] = new TLatex(1.5, 1e4, "K*^{0} in p+Al, #sqrt{s_{NN}} = 200 GeV, |#eta|<0.35");
+  name_fig[0] = new TLatex(1.45, 1e4, "K*^{0} in p+Al");
   Format_Latex(name_fig[0], 62, 0.045, 2);
 
+  name_fig[3] = new TLatex(1.45, 1e3, "#sqrt{s_{NN}} = 200 GeV, |#eta|<0.35");
+  Format_Latex(name_fig[3], 62, 0.045, 2);
+
   leg[0] = new TLegend(0.7, 0.7, 0.95, 0.95);
-  Format_Legend(leg[0], 42, 0.04, 0, 0, "");
+  Format_Legend(leg[0], 42, 0.04, 0, 0, "p+Al");
 
 
   // для pAu вставлены спектры уже домноженные на коэффициенты десятки
@@ -368,11 +380,11 @@ void plotter_spectra_for_ppg_small() {
   kstar_small[1]->sp_format_graph(6, 15, 0.9);
   kstar_small[1]->sp_format_graph_sys(0.1, 5, 0.5);
 
-  name_fig[1] = new TLatex(1.5, 1e4, "K*^{0} in p+Au, #sqrt{s_{NN}} = 200 GeV, |#eta|<0.35");
+  name_fig[1] = new TLatex(1.45, 1e4, "K*^{0} in p+Au");
   Format_Latex(name_fig[1], 62, 0.045, 2);
 
   leg[1] = new TLegend(0.7, 0.45, 0.95, 0.7);
-  Format_Legend(leg[1], 42, 0.04, 0, 0, "");
+  Format_Legend(leg[1], 42, 0.04, 0, 0, "p+Au");
 
 
   kstar_small[2] = new Particles("rab_kstar_heau", 5, n_kstar_heau, kBlue, 20);
@@ -382,11 +394,11 @@ void plotter_spectra_for_ppg_small() {
   kstar_small[2]->sp_format_graph(4, 15, 0.9);
   kstar_small[2]->sp_format_graph_sys(0.1, 5, 0.5);
 
-  name_fig[2] = new TLatex(1.5, 1e4, "K*^{0} in ^{3}He+Au, #sqrt{s_{NN}} = 200 GeV, |#eta|<0.35");
+  name_fig[2] = new TLatex(1.45, 1e4, "K*^{0} in ^{3}He+Au");
   Format_Latex(name_fig[2], 62, 0.045, 2);
 
-  leg[2] = new TLegend(0.7, 0.2, 0.95, 0.45);
-  Format_Legend(leg[2], 42, 0.04, 0, 0, "");
+  leg[2] = new TLegend(0.7, 0.18, 0.95, 0.43);
+  Format_Legend(leg[2], 42, 0.04, 0, 0, "^{3}He+Au");
 
 
   double koeff_levy_small[3][5] = {
@@ -431,10 +443,11 @@ void plotter_spectra_for_ppg_small() {
   for (int i = 0; i < 4; ++i) {
     leg[2]->AddEntry(kstar_small[2]->graph_for_legend(4, i), name_cen_small[2][i] + "x" + coeff_scale_small[2].name_coeff[i],"p");
   }
-  leg[2]->AddEntry( levy_fit->levy_for_legend(10),  "levy fit" , "l");
+  leg[2]->AddEntry( levy_fit->levy_for_legend(10),  "Levy fit" , "l");
 
   phenix[0]->Draw();
   name_fig[0]->Draw();
+  name_fig[3]->Draw();
   leg[0]->Draw();
   leg[1]->Draw();
   leg[2]->Draw();
@@ -448,7 +461,7 @@ void plotter_spectra_for_ppg_small() {
     kstar_small[1]->sp_fit(koeff_levy_small[1], i);
     kstar_small[1]->sp_draw_sys(i);
   }
-  phenix[1]->Draw();
+  //phenix[1]->Draw();
   name_fig[1]->Draw();
 
 
@@ -460,10 +473,10 @@ void plotter_spectra_for_ppg_small() {
     kstar_small[2]->sp_fit(koeff_levy_small[2], i);
     kstar_small[2]->sp_draw_sys(i);
   }
-  phenix[2]->Draw();
+  //phenix[2]->Draw();
   name_fig[2]->Draw();
 
-  c1->Print("~/ppg_plots/spectra_small.png");
+  c1->Print("~/ppg_plots/spectra_small_1.png");
 
 }
 
@@ -537,13 +550,15 @@ void plotter_rab_for_ppg_cuau() {
   auto kstar_cuau = new Particles("rab_kstar_cuau", 5, n_kstar_cuau, kRed, 21);
   kstar_cuau->rab_format_graph(5, 5, 0.8);
   kstar_cuau->rab_format_graph_sys(0.09, 5, 0.3);
-  kstar_cuau->type_c_format(7.6, 0.05);
+  kstar_cuau->type_c_format(6.8, 0.07);
 
-  auto legend = new TLegend(0.1, 0.1, 0.5, 0.5);
-  Format_Legend(legend, 42, 0.06, 2, 0, "");
+  auto legend = new TLegend(0.4, 1.045, 0.15, 0.895);
+  Format_Legend(legend, 42, 0.06, 0, 0, "");
 
   auto c1 = new TCanvas("c1", "c1", 4000, 4000);
   Format_Canvas(c1, 2, 2, 0);
+
+  legend->AddEntry(kstar_cuau->graph_legend(6), "K*^{0}#rightarrow K^{#pm}#pi^{#mp}", "p");
 
   for (int i = 0; i < 4; ++i) {
     c1->cd(i + 1);
@@ -553,7 +568,6 @@ void plotter_rab_for_ppg_cuau() {
     double param_pad[] = {1., 7.1, 0.01, 1.99, 0.99, 0.9, 0.06, 0.06, 0, 504, 505, 1};
     Format_Pad(param_pad, x_title, y_title);
 
-    legend->AddEntry(kstar_cuau->graph_legend(10), "K*^{0}#rightarrow K^{#pm}#pi^{#mp}", "p");
     if (i == 2) legend->Draw();
 
     Double_t param_lat[] = {1.15, 0.2, 62, 0.08, 2};
@@ -576,7 +590,7 @@ void plotter_rab_for_ppg_cuau() {
     kstar_cuau->draw_all(i);
   }
 
-  c1->Print("ppg_plots/rab_cuau.png");
+  c1->Print("~/ppg_plots/rab_cuau.png");
 
 
 }
@@ -603,7 +617,7 @@ void plotter_rab_for_ppg_uu() {
   Format_Canvas(c1, 2, 2, 0);
 
 
-  legend->AddEntry(kstar_uu->graph_legend(10), "K*^{0}#rightarrow K^{#pm}#pi^{#mp}", "p");
+  legend->AddEntry(kstar_uu->graph_legend(7), "K*^{0}#rightarrow K^{#pm}#pi^{#mp}", "p");
   for (int i = 0; i < 4; ++i) {
     c1->cd(i + 1);
     double par_sp_uu[] = {0.12, 0., 0.12, 0.0};
@@ -624,7 +638,7 @@ void plotter_rab_for_ppg_uu() {
     if (i == 0) kstar_uu->latex_draw(param_lat_eta, "|#eta|<0.35");
 
 
-    Double_t param_lat_cen[] = {3.36, 1.8, 62, 0.07, 2};
+    Double_t param_lat_cen[] = {3.3, 1.8, 62, 0.07, 2};
     if (i == 0 || i == 3) {
       param_lat_cen[0] += 0.13;
       kstar_uu->latex_draw(param_lat_cen, centrality[1][i]);
@@ -637,7 +651,7 @@ void plotter_rab_for_ppg_uu() {
 
   }
 
-  c1->Print("ppg_plots/rab_uu.png");
+  c1->Print("~/ppg_plots/rab_uu.png");
 
 }
 
@@ -652,9 +666,9 @@ void plotter_rab_for_ppg_heau() {
 
   TString x_title = "p_{T} [GeV/c]";
   TString y_title = "R_{AB}";
-  auto kstar_heau = new Particles("rab_kstar_heau", 5, n_kstar_heau, kRed, 21);
-  kstar_heau->rab_format_graph(5.5, 8, 0.9);
-  kstar_heau->rab_format_graph_sys(0.06, 10, 0.4);
+  auto kstar_heau = new Particles("rab_kstar_heau", 5, n_kstar_heau, kBlack, 113);
+  kstar_heau->rab_format_graph(7, 8, 0.9);
+  kstar_heau->rab_format_graph_sys(0.06, 10, 0.3);
   kstar_heau->type_c_format(6.1, 0.05);
 
 
@@ -698,7 +712,7 @@ void plotter_rab_for_ppg_heau() {
     kstar_heau->draw_all(i);
 
   }
-  c1->Print("ppg_plots/rab_heau.png");
+  c1->Print("~/ppg_plots/rab_heau.png");
 }
 
 void plotter_rab_for_ppg_pau() {
@@ -712,9 +726,9 @@ void plotter_rab_for_ppg_pau() {
 
   TString x_title = "p_{T} [GeV/c]";
   TString y_title = "R_{AB}";
-  auto kstar_pau = new Particles("rab_kstar_pau", 5, n_kstar_pau, kBlue, 33);
-  kstar_pau->rab_format_graph(5.5, 8, 0.9);
-  kstar_pau->rab_format_graph_sys(0.06, 10, 0.5);
+  auto kstar_pau = new Particles("rab_kstar_pau", 5, n_kstar_pau, kBlue, 110);
+  kstar_pau->rab_format_graph(8, 8, 0.9);
+  kstar_pau->rab_format_graph_sys(0.06, 10, 0.3);
   kstar_pau->type_c_format(5.95, 0.05);
 
 
@@ -759,7 +773,7 @@ void plotter_rab_for_ppg_pau() {
     kstar_pau->draw_all(i);
 
   }
-  c1->Print("ppg_plots/rab_pau.png");
+  c1->Print("~/ppg_plots/rab_pau.png");
 
 
 }
@@ -775,9 +789,9 @@ void plotter_rab_for_ppg_pal() {
 
   TString x_title = "p_{T} [GeV/c]";
   TString y_title = "R_{AB}";
-  auto kstar_pal = new Particles("rab_kstar_pal", 5, n_kstar_pal, kBlue, 33);
-  kstar_pal->rab_format_graph(5.5, 8, 0.9);
-  kstar_pal->rab_format_graph_sys(0.06, 10, 0.5);
+  auto kstar_pal = new Particles("rab_kstar_pal", 5, n_kstar_pal, kMagenta, 108);
+  kstar_pal->rab_format_graph(8, 8, 0.9);
+  kstar_pal->rab_format_graph_sys(0.06, 10, 0.3);
   kstar_pal->type_c_format(4, 0.05);
 
 
@@ -814,15 +828,15 @@ void plotter_rab_for_ppg_pal() {
 
     if (i == 0 || i == 3) {
       param_lat_cen[0] += 0.13;
-      kstar_pal->latex_draw(param_lat_cen, centrality[3][i]);
-    } else { kstar_pal->latex_draw(param_lat_cen, centrality[3][i]); }
+      kstar_pal->latex_draw(param_lat_cen, centrality[4][i]);
+    } else { kstar_pal->latex_draw(param_lat_cen, centrality[4][i]); }
 
     unity_level->DrawLine(param_pad[0], 1, param_pad[1], 1);
 
     kstar_pal->draw_all(i);
 
   }
-  c1->Print("ppg_plots/rab_pal.png");
+  c1->Print("~/ppg_plots/rab_pal.png");
 
 
 }
@@ -838,41 +852,41 @@ void plotter_rab_for_ppg_small_systems() {
   TString x_title = "p_{T} [GeV/c]";
   TString y_title = "R_{AB}";
 
-  auto kstar_pal = new Particles("rab_kstar_pal", 4, n_kstar_pal, kGreen, 107);
+  auto kstar_pal = new Particles("rab_kstar_pal", 4, n_kstar_pal, kMagenta, 108);
   kstar_pal->rab_format_graph(4, 4, 0.7);
   kstar_pal->rab_format_graph_sys(0.06, 10, 0.3);
-  kstar_pal->type_c_format(8, 0.05);
+  kstar_pal->type_c_format(7., 0.05);
 
-  auto kstar_pau = new Particles("rab_kstar_pau", 4, n_kstar_pau, kBlue, 108);
+  auto kstar_pau = new Particles("rab_kstar_pau", 4, n_kstar_pau, kBlue, 110);
   kstar_pau->rab_format_graph(4, 4, 0.5);
   kstar_pau->rab_format_graph_sys(0.06, 10, 0.3);
-  kstar_pau->type_c_format(7.92, 0.05);
+  kstar_pau->type_c_format(7.1, 0.05);
 
-  auto kstar_dau = new Particles("rab_kstar_dau", 4, n_kstar_dau, kRed, 91);
+  auto kstar_dau = new Particles("rab_kstar_dau", 5, n_kstar_dau, kRed, 91);
   kstar_dau->rab_format_graph(4, 4, 0.5);
   kstar_dau->rab_format_graph_sys(0.05, 10, 0.3);
-  kstar_dau->type_c_format(7.84, 0.05);
+  kstar_dau->type_c_format(7., 0.05);
 
   auto kstar_heau = new Particles("rab_kstar_heau", 5, n_kstar_heau, kBlack, 95);
   kstar_heau->rab_format_graph(4, 4, 0.5);
   kstar_heau->rab_format_graph_sys(0.06, 10, 0.3);
-  kstar_heau->type_c_format(7.76, 0.05);
+  kstar_heau->type_c_format(7.2, 0.05);
 
 
-  auto legend = new TLegend(0.4, 0.8, 0.15, 1.03);
+  auto legend = new TLegend(0.41, 0.77, 0.16, 1);
   Format_Legend(legend, 62, 0.05, 0, 0, "");
 
   auto c1 = new TCanvas("c1", "c1", 4000, 4000);
   Format_Canvas(c1, 2, 2, 0);
 
 
-  legend->AddEntry(kstar_pal->graph_legend(8), "p+Al", "p");
+  legend->AddEntry(kstar_pal->graph_legend(6), "p+Al", "p");
   legend->AddEntry(kstar_pau->graph_legend(8), "p+Au", "p");
-  legend->AddEntry(kstar_dau->graph_legend(8), "d+Au", "p");
-  legend->AddEntry(kstar_heau->graph_legend(8), "^{3}He+Au", "p");
+  //legend->AddEntry(kstar_dau->graph_legend(6), "d+Au", "p");
+  legend->AddEntry(kstar_heau->graph_legend(6), "^{3}He+Au", "p");
 
   TString centr1[] = {"0-20%", "20-40%", "Peripheral", "MinBias"};
-  Double_t x_for_centr1[] = {7, 6.8, 6.3, 6.7};
+  Double_t x_for_centr1[] = {6.3, 6.1, 5.6, 5.95};
 
   for (int i = 0; i < 4; ++i) {
     c1->cd(i + 1);
@@ -880,37 +894,39 @@ void plotter_rab_for_ppg_small_systems() {
     SetMarginPad(par_sp_pal);
 
 
-    double param_pad[] = {0.8, 8.2, 0.01, 2.6, 1, 1.15, 0.055, 0.06, 0, 504, 506, 1};
+    double param_pad[] = {0.8, 7.4, 0.01, 2.2, 1, 1.15, 0.055, 0.06, 0, 504, 506, 1};
     Format_Pad(param_pad, x_title, y_title);
 
     if (i == 1) legend->Draw();
 
-    Double_t param_lat[] = {7.2, 0.1, 62, 0.08, 2};
+    Double_t param_lat[] = {6.5, 0.1, 62, 0.08, 2};
     kstar_pal->latex_draw(param_lat, abcd[i]);
 
-    Double_t param_lat_name[] = {1.4, 2.4, 62, 0.049, 2};
+    Double_t param_lat_name[] = {1., 2.03, 62, 0.049, 2};
     if (i == 0) kstar_pal->latex_draw(param_lat_name, "K*^{0}, #sqrt{s_{NN}}=200 GeV, |#eta|<0.35");
 
 
-    Double_t param_lat_name1[] = {x_for_centr1[i], 2.4, 62, 0.049, 2};
+    Double_t param_lat_name1[] = {x_for_centr1[i], 2.03, 62, 0.049, 2};
     kstar_pau->latex_draw(param_lat_name1, centr1[i]);
 
 
     unity_level->DrawLine(param_pad[0], 1, param_pad[1], 1);
 
 
-    kstar_heau->draw_all(i);
+    if (i == 0 || i == 1) kstar_heau->draw_all(i);
+    if (i == 2 || i == 3) kstar_heau->draw_all(i+1);
 
-    kstar_dau->draw_all(i);
 
-    kstar_pal->draw_all(i);
+    //if (i == 0 || i == 1) kstar_dau->draw_all(i);
+    //if (i == 2 || i == 3) kstar_dau->draw_all(i+1);
+
     kstar_pau->draw_all(i);
-
+    kstar_pal->draw_all(i);
 
   }
 
 
-  c1->Print("ppg_plots/rab_small_systems5.png");
+  c1->Print("~/ppg_plots/rab_small_systems_1.png");
 
 }
 
@@ -1427,7 +1443,7 @@ void plotter_for_ppg_integrated_rab_small() {
 }
 
 void plotter() {
-  plotter_spectra_for_ppg_small();
+  plotter_rab_for_ppg_small_systems();
   // join_plot();
 }
 
