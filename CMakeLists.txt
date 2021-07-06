@@ -8,6 +8,6 @@ include_directories(~/root/install_root/include)
 
 add_executable(plotter.cpp
         FormatOfEverything.h
-        plotter.cpp particles_data.h Particles.cpp)
+        plotter.cpp particles_data.h Particles.cpp FormatPad.cpp)
 
 

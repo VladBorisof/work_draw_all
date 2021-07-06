@@ -3,6 +3,7 @@
 //
 #include "particles_data.h"
 #include "Particles.cpp"
+#include "FormatPad.cpp"
 
 void plotter_rab() {
 
@@ -44,7 +45,6 @@ void plotter_rab() {
   Format_Legend(legend[0], 42, 0.04, 0, 0, "");
   legend[1] = new TLegend(0.15, 0.75, 0.3, 0.97);
   Format_Legend(legend[1], 42, 0.04, 0, 0, "");
-
 
   c2->cd(1);
   SetMarginPad(par);
@@ -175,7 +175,6 @@ void plotter_small() {
 }
 
 
-
 struct coeff_scale_sp {
     double coeff[5];
     TString name_coeff[5];
@@ -192,7 +191,7 @@ void plotter_spectra_for_ppg_heavy() {
   TLatex *name_fig[3];
   TLegend *leg[3];
 
-  levy_fit = new Particles("rab_kstar_pal", 0,  0, 0);
+  levy_fit = new Particles("rab_kstar_pal", 0, 0, 0);
   leg[2] = new TLegend(0.67, 0.11, 0.97, 0.36);
   Format_Legend(leg[2], 42, 0.04, 0, 0, "");
 
@@ -208,7 +207,7 @@ void plotter_spectra_for_ppg_heavy() {
   Format_Latex(name_fig[0], 62, 0.045, 2);
   name_fig[2] = new TLatex(1.9, 8e2, "|#eta|<0.35");
   Format_Latex(name_fig[2], 62, 0.045, 2);
-  leg[0] = new TLegend( 0.67, 0.45, 0.97, 0.75);
+  leg[0] = new TLegend(0.67, 0.45, 0.97, 0.75);
   Format_Legend(leg[0], 42, 0.04, 0, 0, "   Cu+Au");
   TString name_cen_cuau[] = {"  0-20%", "20-40%", "40-60%", "60-80%", "  0-93%"};
   double par_sp_cuau[] = {0.15, 0.0, 0.1, 0.};
@@ -234,12 +233,24 @@ void plotter_spectra_for_ppg_heavy() {
   double koeff_levy_uu[] = {1.55 - 0.1, 3.7 + 0.1, 0.0455202, 10.0277, 0.252345};
   double koeff_levy_uu_2[] = {1.55 - 0.1, 4.25 + 0.1, 0.0455202, 10.0277, 0.252345};
 
+  map<int, TString> format_y_label = {{1, "1e-8"},
+                                      {2, "1e-4"},
+                                      {3, "1e0"},
+                                      {4, "1e4"}};
+
+  double param_0[] = {1.1, 6.5, 1.1e-11, 1e5 - 1};
+  auto pad = new FormatPad(param_0, sp_pad_title_x, sp_pad_title_y);
+  double param_1[] = {0.95, 1.4, 0.05, 0.05, 504, 504};
+  pad->set_basic_settings(param_1);
+  pad->set_logy();
+  pad->set_margin_pad(par_sp_cuau);
 
   auto c1 = new TCanvas("c1", "c1", 4000, 2000);
   Format_Canvas(c1, 2, 1, 0);
   c1->cd(1);
-  SetMarginPad(par_sp_cuau);
-  Format_Pad(param_pad_sp_cuau, sp_pad_title_x, sp_pad_title_y);
+  //SetMarginPad(par_sp_cuau);
+  //Format_Pad_test(param_pad_sp_cuau, sp_pad_title_x, sp_pad_title_y, format_y_label);
+  pad->draw_pad();
   for (int j = 0; j < 5; ++j) {
     kstar_cuau_sp->sp_draw(j);
     kstar_cuau_sp->sp_fit(koeff_levy_cuau, j);
@@ -248,7 +259,7 @@ void plotter_spectra_for_ppg_heavy() {
 
   leg[0]->AddEntry(kstar_cuau_sp->graph_for_legend(4, 4), name_cen_cuau[4] + "x" + coeff_for_cuau.name_coeff[4], "p");
 
-  for (int j = 0; j <4; j++) {
+  for (int j = 0; j < 4; j++) {
     leg[0]->AddEntry(kstar_cuau_sp->graph_for_legend(4, j), name_cen_cuau[j] + "x" + coeff_for_cuau.name_coeff[j], "p");
   }
 
@@ -264,15 +275,15 @@ void plotter_spectra_for_ppg_heavy() {
     kstar_uu->sp_draw(j);
     kstar_uu->sp_fit(koeff_levy_uu, j);
     kstar_uu->sp_draw_sys(j);
-    if (j == 3){kstar_uu->sp_fit(koeff_levy_uu_2, j);}
+    if (j == 3) { kstar_uu->sp_fit(koeff_levy_uu_2, j); }
   }
 
   leg[1]->AddEntry(kstar_uu->graph_for_legend(6, 3), name_cen_uu[3] + "x" + coeff_for_uu.name_coeff[3], "p");
 
-  for (int j = 0; j <3; j++) {
+  for (int j = 0; j < 3; j++) {
     leg[1]->AddEntry(kstar_uu->graph_for_legend(6, j), name_cen_uu[j] + "x" + coeff_for_uu.name_coeff[j], "p");
   }
-  leg[2]->AddEntry( levy_fit->levy_for_legend(10),  "Levy fit" , "l");
+  leg[2]->AddEntry(levy_fit->levy_for_legend(10), "Levy fit", "l");
 
   leg[0]->Draw();
   leg[1]->Draw();
@@ -337,7 +348,7 @@ void plotter_spectra_for_ppg_small() {
   coeff_scale_sp coeff_scale_small[3];
   double par_sp_small[3][4] = {
           {0.15, 0.0, 0.1, 0.0},
-          {0.15, 0., 0.1, 0.},
+          {0.15, 0.,  0.1, 0.},
           {0.15, 0.0, 0.1, 0.0}
   };
   double param_pad_sp_small[3][12] = {
@@ -352,11 +363,11 @@ void plotter_spectra_for_ppg_small() {
   };
 
 
-  levy_fit = new Particles("rab_kstar_pal", 0,  0, 0);
+  levy_fit = new Particles("rab_kstar_pal", 0, 0, 0);
 
   kstar_small[0] = new Particles("rab_kstar_pal", 4, n_kstar_pal, kMagenta, 21);
-  coeff_scale_small[0] = {{1,  1e-1, 1e-2, 1e2},
-                          {"10^{0}", "10^{-1}",   "10^{-2}",   "10^{2}"}};
+  coeff_scale_small[0] = {{1,        1e-1,      1e-2,      1e2},
+                          {"10^{0}", "10^{-1}", "10^{-2}", "10^{2}"}};
 
   kstar_small[0]->sp_scale(coeff_scale_small[0].coeff);
   kstar_small[0]->sp_format_graph(4, 15, 0.9);
@@ -374,8 +385,8 @@ void plotter_spectra_for_ppg_small() {
 
   // для pAu вставлены спектры уже домноженные на коэффициенты десятки
   kstar_small[1] = new Particles("rab_kstar_pau", 4, n_kstar_pau, kViolet, 33);
-  coeff_scale_small[1] = {{1, 1e0, 1e0, 1e0},
-                          {"10^{0}", "10^{-1}",   "10^{-2}",   "10^{2}"}};
+  coeff_scale_small[1] = {{1,        1e0,       1e0,       1e0},
+                          {"10^{0}", "10^{-1}", "10^{-2}", "10^{2}"}};
   kstar_small[1]->sp_scale(coeff_scale_small[1].coeff);
   kstar_small[1]->sp_format_graph(6, 15, 0.9);
   kstar_small[1]->sp_format_graph_sys(0.1, 5, 0.5);
@@ -388,8 +399,8 @@ void plotter_spectra_for_ppg_small() {
 
 
   kstar_small[2] = new Particles("rab_kstar_heau", 5, n_kstar_heau, kBlue, 20);
-  coeff_scale_small[2] = {{1, 1e-1, 1e-2, 1e-3, 1e2},
-                          {"10^{0}", "10^{-1}",   "10^{-2}",   "10^{-3}", "10^{2}"}};
+  coeff_scale_small[2] = {{1,        1e-1,      1e-2,      1e-3,      1e2},
+                          {"10^{0}", "10^{-1}", "10^{-2}", "10^{-3}", "10^{2}"}};
   kstar_small[2]->sp_scale(coeff_scale_small[2].coeff);
   kstar_small[2]->sp_format_graph(4, 15, 0.9);
   kstar_small[2]->sp_format_graph_sys(0.1, 5, 0.5);
@@ -426,24 +437,30 @@ void plotter_spectra_for_ppg_small() {
     kstar_small[0]->sp_draw_sys(i);
   }
 
-   kstar_small[0]->sp_fit(koeff_levy_small[0], 3);
+  kstar_small[0]->sp_fit(koeff_levy_small[0], 3);
 
   for (int i = 0; i < 3; ++i) {
     kstar_small[0]->sp_fit(koeff_levy_small_2[0], i);
   }
 
-  leg[0]->AddEntry(kstar_small[0]->graph_for_legend(5, 3), name_cen_small[0][3] + "x" +coeff_scale_small[0].name_coeff[3], "p");
-  leg[1]->AddEntry(kstar_small[1]->graph_for_legend(7, 3), name_cen_small[1][3] + "x" + coeff_scale_small[1].name_coeff[3],"p");
-  leg[2]->AddEntry(kstar_small[2]->graph_for_legend(4, 4), name_cen_small[2][4] + "x" +coeff_scale_small[2].name_coeff[4],"p");
+  leg[0]->AddEntry(kstar_small[0]->graph_for_legend(5, 3),
+                   name_cen_small[0][3] + "x" + coeff_scale_small[0].name_coeff[3], "p");
+  leg[1]->AddEntry(kstar_small[1]->graph_for_legend(7, 3),
+                   name_cen_small[1][3] + "x" + coeff_scale_small[1].name_coeff[3], "p");
+  leg[2]->AddEntry(kstar_small[2]->graph_for_legend(4, 4),
+                   name_cen_small[2][4] + "x" + coeff_scale_small[2].name_coeff[4], "p");
   for (int i = 0; i < 3; ++i) {
-    leg[0]->AddEntry(kstar_small[0]->graph_for_legend(5, i), name_cen_small[0][i] + "x" + coeff_scale_small[0].name_coeff[i], "p");
-    leg[1]->AddEntry(kstar_small[1]->graph_for_legend(7, i), name_cen_small[1][i] + "x" + coeff_scale_small[1].name_coeff[i],"p");
+    leg[0]->AddEntry(kstar_small[0]->graph_for_legend(5, i),
+                     name_cen_small[0][i] + "x" + coeff_scale_small[0].name_coeff[i], "p");
+    leg[1]->AddEntry(kstar_small[1]->graph_for_legend(7, i),
+                     name_cen_small[1][i] + "x" + coeff_scale_small[1].name_coeff[i], "p");
   }
 
   for (int i = 0; i < 4; ++i) {
-    leg[2]->AddEntry(kstar_small[2]->graph_for_legend(4, i), name_cen_small[2][i] + "x" + coeff_scale_small[2].name_coeff[i],"p");
+    leg[2]->AddEntry(kstar_small[2]->graph_for_legend(4, i),
+                     name_cen_small[2][i] + "x" + coeff_scale_small[2].name_coeff[i], "p");
   }
-  leg[2]->AddEntry( levy_fit->levy_for_legend(10),  "Levy fit" , "l");
+  leg[2]->AddEntry(levy_fit->levy_for_legend(10), "Levy fit", "l");
 
   phenix[0]->Draw();
   name_fig[0]->Draw();
@@ -914,7 +931,7 @@ void plotter_rab_for_ppg_small_systems() {
 
 
     if (i == 0 || i == 1) kstar_heau->draw_all(i);
-    if (i == 2 || i == 3) kstar_heau->draw_all(i+1);
+    if (i == 2 || i == 3) kstar_heau->draw_all(i + 1);
 
 
     //if (i == 0 || i == 1) kstar_dau->draw_all(i);
@@ -1443,7 +1460,7 @@ void plotter_for_ppg_integrated_rab_small() {
 }
 
 void plotter() {
-  plotter_rab_for_ppg_small_systems();
+  plotter_spectra_for_ppg_heavy();
   // join_plot();
 }
 
