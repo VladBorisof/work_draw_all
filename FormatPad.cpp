@@ -5,6 +5,7 @@
 #include <TH1F.h>
 #include <TVirtualPad.h>
 #include <map>
+#include <TPad.h>
 
 using namespace std;
 
@@ -50,6 +51,10 @@ FormatPad::FormatPad(double *parameters, const char *title_x, const char *title_
 
   second->GetXaxis()->SetTitle(title_x);
   second->GetYaxis()->SetTitle(title_y);
+}
+
+FormatPad::~FormatPad() {
+  delete second;
 }
 
 void FormatPad::set_logy() {

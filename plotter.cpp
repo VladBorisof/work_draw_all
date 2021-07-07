@@ -242,8 +242,9 @@ void plotter_spectra_for_ppg_heavy() {
   auto pad = new FormatPad(param_0, sp_pad_title_x, sp_pad_title_y);
   double param_1[] = {0.95, 1.4, 0.05, 0.05, 504, 504};
   pad->set_basic_settings(param_1);
-  pad->set_logy();
-  pad->set_margin_pad(par_sp_cuau);
+  // pad->set_logy();
+  // pad->set_margin_pad(par_sp_cuau);
+  pad->set_center_axis_title();
 
   auto c1 = new TCanvas("c1", "c1", 4000, 2000);
   Format_Canvas(c1, 2, 1, 0);
