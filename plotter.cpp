@@ -233,7 +233,7 @@ void plotter_spectra_for_ppg_heavy() {
   double koeff_levy_uu[] = {1.55 - 0.1, 3.7 + 0.1, 0.0455202, 10.0277, 0.252345};
   double koeff_levy_uu_2[] = {1.55 - 0.1, 4.25 + 0.1, 0.0455202, 10.0277, 0.252345};
 
-  map<int, TString> format_y_label = {{1, "1e-8"},
+  /*map<int, TString> format_y_label = {{1, "1e-8"},
                                       {2, "1e-4"},
                                       {3, "1e0"},
                                       {4, "1e4"}};
@@ -244,14 +244,14 @@ void plotter_spectra_for_ppg_heavy() {
   pad->set_basic_settings(param_1);
   // pad->set_logy();
   // pad->set_margin_pad(par_sp_cuau);
-  pad->set_center_axis_title();
+  pad->set_center_axis_title();*/
 
   auto c1 = new TCanvas("c1", "c1", 4000, 2000);
   Format_Canvas(c1, 2, 1, 0);
   c1->cd(1);
-  //SetMarginPad(par_sp_cuau);
-  //Format_Pad_test(param_pad_sp_cuau, sp_pad_title_x, sp_pad_title_y, format_y_label);
-  pad->draw_pad();
+  SetMarginPad(par_sp_cuau);
+  Format_Pad(param_pad_sp_cuau, sp_pad_title_x, sp_pad_title_y);
+  //pad->draw_pad();
   for (int j = 0; j < 5; ++j) {
     kstar_cuau_sp->sp_draw(j);
     kstar_cuau_sp->sp_fit(koeff_levy_cuau, j);
