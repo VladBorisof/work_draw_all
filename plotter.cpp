@@ -969,7 +969,6 @@ void plotter_rab_heau_kstar_phi_pi0() {
   kstar_phi_heau->type_c_format(7.92, 0.05);
 
   auto kstar_pi0_heau = new Particles("rab_pi0_heau", 4, n_pi0_heau - 1, kRed, 91);
-  kstar_pi0_heau->set_sys_errors();
   kstar_pi0_heau->rab_format_graph(4, 4, 0.5);
   kstar_pi0_heau->rab_format_graph_sys(0.05, 10, 0.3);
   kstar_pi0_heau->type_c_format(7.84, 0.05);
@@ -1045,7 +1044,6 @@ void plotter_rab_pau_kstar_phi_pi0() {
   kstar_phi_pau->type_c_format(4.79, 0.05);
 
   auto kstar_pi0_pau = new Particles("rab_pi0_pau", 4, n_pi0_pau, kRed, 91);
-  kstar_pi0_pau->set_sys_errors();
   kstar_pi0_pau->rab_format_graph(4, 4, 0.5);
   kstar_pi0_pau->rab_format_graph_sys(0.05, 10, 0.3);
   kstar_pi0_pau->type_c_format(4.73, 0.05);
@@ -1120,7 +1118,6 @@ void plotter_rab_pal_kstar_phi_pi0() {
   kstar_phi_pal->type_c_format(4.09, 0.05);
 
   auto kstar_pi0_pal = new Particles("rab_pi0_pal", 4, n_pi0_pal - 2, kRed, 91);
-  kstar_pi0_pal->set_sys_errors();
   kstar_pi0_pal->rab_format_graph(4, 4, 0.5);
   kstar_pi0_pal->rab_format_graph_sys(0.05, 10, 0.3);
   kstar_pi0_pal->type_c_format(4.03, 0.05);
