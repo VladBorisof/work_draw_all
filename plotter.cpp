@@ -1,4 +1,4 @@
-//инструмент
+//
 // Created by vlad on 16.12.2020.
 //
 #include "particles_data.h"
@@ -181,7 +181,7 @@ struct coeff_scale_sp {
 };
 
 void plotter_spectra_for_ppg_heavy() {
-  // general declaration
+  /// general declaration
   Particles *levy_fit;
   TString sp_pad_title_x = "p_{T} [GeV/c]";
   TString sp_pad_title_y = "1/2#pi 1/p_{T} d^{2}N/dydp_{T} [(GeV/c)^{-2}]";
@@ -195,7 +195,7 @@ void plotter_spectra_for_ppg_heavy() {
   leg[2] = new TLegend(0.67, 0.11, 0.97, 0.36);
   Format_Legend(leg[2], 42, 0.04, 0, 0, "");
 
-  // special for Cu+Au spectra declaration
+  /// special for Cu+Au spectra declaration
   auto kstar_cuau_sp = new Particles("rab_kstar_cuau", 5, n_kstar_cuau, kMagenta, 21);
   coeff_scale_sp coeff_for_cuau{{1,        1e-1,      1e-2,      1e-3,      1e2},
                                 {"10^{0}", "10^{-1}", "10^{-2}", "10^{-3}", "10^{2}"}};
@@ -215,7 +215,7 @@ void plotter_spectra_for_ppg_heavy() {
   double param_pad_sp_cuau[] = {1.1, 6.5, 1.1e-11, 1e5 - 1, 0.95, 1.4, 0.05, 0.05, 1, 504, 504, 1};
   double koeff_levy_cuau[5] = {2 - 0.1, 5.75 + 0.1, 0.0455202, 10.0277, 0.252345};
 
-  // special for U+U spectra declaration
+  /// special for U+U spectra declaration
   auto kstar_uu = new Particles("rab_kstar_uu", 4, n_kstar_uu, kBlue, 33);
   coeff_scale_sp coeff_for_uu{{1e-3,      1e-4,      1e-5,      1e-1},
                               {"10^{-3}", "10^{-4}", "10^{-5}", "10^{-1}"}};

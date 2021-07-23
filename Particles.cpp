@@ -531,12 +531,14 @@ void Particles::int_draw_sys() {
 }
 
 void Particles::latex_draw(Double_t *param, const TString &text) {
-  /*param
+  /** param
    * 0 - x
    * 1 - y
    * 2 - font
    * 3 - size
-   * 4 - line_wd*/
+   * 4 - line_wd
+   * */
+   
   auto lat_obj = new TLatex();
   lat_obj->SetTextFont(param[2]);
   lat_obj->SetTextSize(param[3]);
