@@ -201,8 +201,9 @@ void plotter_spectra_for_ppg_heavy() {
                                 {"10^{0}", "10^{-1}", "10^{-2}", "10^{-3}", "10^{2}"}};
 
   kstar_cuau_sp->sp_scale(coeff_for_cuau.coeff);
-  kstar_cuau_sp->sp_format_graph(4, 15, 0.9);
-  kstar_cuau_sp->sp_format_graph_sys(0.1, 5, 0.5);
+  Color_t colors_cuau[5] = {kBlue, kBlue+2, kMagenta, kMagenta+2, kBlack};
+  kstar_cuau_sp->sp_format_graph(colors_cuau, 4, 15, 0.9);
+  kstar_cuau_sp->sp_format_graph_sys(colors_cuau,0.1, 5, 0.5);
   name_fig[0] = new TLatex(1.9, 8e3, "K*^{0} in Cu+Au, #sqrt{s_{NN}} = 200 GeV");
   Format_Latex(name_fig[0], 62, 0.045, 2);
   name_fig[2] = new TLatex(1.9, 8e2, "|#eta|<0.35");
@@ -213,7 +214,6 @@ void plotter_spectra_for_ppg_heavy() {
   double par_sp_cuau[] = {0.15, 0.0, 0.1, 0.};
   double param_pad_sp_cuau[] = {1.1, 6.5, 1.1e-11, 1e5 - 1, 0.95, 1.4, 0.05, 0.05, 1, 504, 504, 1};
   double koeff_levy_cuau[5] = {2 - 0.1, 5.75 + 0.1, 0.0455202, 10.0277, 0.252345};
-  Color_t color_cuau[] = {kAzure, kAzure + 1, kAzure + 2, kAzure + 3, kBlack};
 
   // special for U+U spectra declaration
   auto kstar_uu = new Particles("rab_kstar_uu", 4, n_kstar_uu, kBlue, 33);
@@ -258,10 +258,10 @@ void plotter_spectra_for_ppg_heavy() {
     kstar_cuau_sp->sp_draw_sys(j);
   }
 
-  leg[0]->AddEntry(kstar_cuau_sp->graph_for_legend(4, 4), name_cen_cuau[4] + "x" + coeff_for_cuau.name_coeff[4], "p");
+  leg[0]->AddEntry(kstar_cuau_sp->graph_for_legend(colors_cuau, 4, 4), name_cen_cuau[4] + "x" + coeff_for_cuau.name_coeff[4], "p");
 
   for (int j = 0; j < 4; j++) {
-    leg[0]->AddEntry(kstar_cuau_sp->graph_for_legend(4, j), name_cen_cuau[j] + "x" + coeff_for_cuau.name_coeff[j], "p");
+    leg[0]->AddEntry(kstar_cuau_sp->graph_for_legend(colors_cuau,4, j), name_cen_cuau[j] + "x" + coeff_for_cuau.name_coeff[j], "p");
   }
 
   phenix[0]->Draw();
@@ -292,7 +292,7 @@ void plotter_spectra_for_ppg_heavy() {
   name_fig[1]->Draw();
   //phenix[1]->Draw();
 
-  c1->Print("~/ppg_plots/spectra_cuau_uu_1.png");
+  c1->Print("~/ppg_plots/spectra_cuau_uu_test_colors.png");
 
   //
   auto levelwide = new TLine();
@@ -1460,7 +1460,7 @@ void plotter_for_ppg_integrated_rab_small() {
 }
 
 void plotter() {
-  plotter_for_ppg_integrated_rab_heavy();
+  plotter_spectra_for_ppg_heavy();
   // join_plot();
 }
 

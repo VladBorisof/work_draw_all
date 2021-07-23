@@ -117,9 +117,13 @@ public:
 
     void data_levy_draw(int i);
 
-    void sp_format_graph(double mark_size, double line_wd, double alpha);
+    void sp_format_graph(Size_t mark_size, double line_wd, double alpha);
+
+    void sp_format_graph(Color_t *color_new, Size_t mark_size, double line_wd, double alpha);
 
     void sp_format_graph_sys(double xe, Width_t line_wd, Float_t alpha);
+
+    void sp_format_graph_sys(Color_t *color_new, double xe, Width_t line_wd, Float_t alpha);
 
     void sp_draw(int i);
 
@@ -128,6 +132,7 @@ public:
     TGraphErrors *graph_legend(Size_t mark_size);
 
     TGraphErrors *graph_for_legend(Size_t mark_size, int i);
+    TGraphErrors *graph_for_legend(Color_t *color_new, Size_t mark_size, int i);
     TF1 *levy_for_legend(Size_t line_wd);
 
     void draw_all(int i);
@@ -600,12 +605,20 @@ void Particles::DrawTypeC(int i) {
 }
 
 
-void Particles::sp_format_graph(double mark_size, double line_wd, double alpha) {
+void Particles::sp_format_graph(Size_t mark_size, double line_wd, double alpha) {
   for (int i = 0; i < _cen; i++) {
     sp_graph[i] = new TGraphErrors(_n, pt, yields[0][i], nullptr, yields[1][i]);
     Format_Graph(sp_graph[i], mark_style, mark_size, color + i, 0, line_wd, color + i, alpha);
   }
 }
+
+void Particles::sp_format_graph(Color_t *color_new, Size_t mark_size, double line_wd, double alpha) {
+  for (int i = 0; i < _cen; i++) {
+    sp_graph[i] = new TGraphErrors(_n, pt, yields[0][i], nullptr, yields[1][i]);
+    Format_Graph(sp_graph[i], mark_style, mark_size, color_new[i], 0, line_wd, color_new[i], alpha);
+  }
+}
+
 
 void Particles::sp_format_graph_sys(double xe, Width_t line_wd, Float_t alpha) {
   double dx[_n];
@@ -616,6 +629,18 @@ void Particles::sp_format_graph_sys(double xe, Width_t line_wd, Float_t alpha) {
     sp_graph_sys[i] = new TGraphErrors(_n, pt, yields[0][i], dx, yields[2][i]);
     Format_Graph(sp_graph_sys[i], 1, 0.1, kWhite, 0, line_wd, color + i, alpha);
     sp_graph_sys[i]->SetFillColorAlpha(color + i, alpha);
+  }
+}
+
+void Particles::sp_format_graph_sys(Color_t *color_new, double xe, Width_t line_wd, Float_t alpha) {
+  double dx[_n];
+  for (int j = 0; j < _n; ++j) {
+    dx[j] = xe;
+  }
+  for (int i = 0; i < _cen; i++) {
+    sp_graph_sys[i] = new TGraphErrors(_n, pt, yields[0][i], dx, yields[2][i]);
+    Format_Graph(sp_graph_sys[i], 1, 0.1, kWhite, 0, line_wd, color_new[i], alpha);
+    sp_graph_sys[i]->SetFillColorAlpha(color_new[i], alpha);
   }
 }
 
@@ -674,6 +699,14 @@ TGraphErrors *Particles::graph_for_legend(Size_t mark_size, int i) {
   gr->SetMarkerStyle(mark_style);
   gr->SetMarkerSize(mark_size);
   gr->SetMarkerColor(color + i);
+  return gr;
+}
+
+TGraphErrors *Particles::graph_for_legend(Color_t *color_new, Size_t mark_size, int i) {
+  auto gr = new TGraphErrors();
+  gr->SetMarkerStyle(mark_style);
+  gr->SetMarkerSize(mark_size);
+  gr->SetMarkerColor(color_new[i]);
   return gr;
 }
 
