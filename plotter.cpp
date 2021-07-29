@@ -5,6 +5,7 @@
 #include "Particles.cpp"
 #include "FormatPad.cpp"
 
+
 void plotter_rab() {
 
   Color_t kstar_colors[] = {};
@@ -233,25 +234,25 @@ void plotter_spectra_for_ppg_heavy() {
   double koeff_levy_uu[] = {1.55 - 0.1, 3.7 + 0.1, 0.0455202, 10.0277, 0.252345};
   double koeff_levy_uu_2[] = {1.55 - 0.1, 4.25 + 0.1, 0.0455202, 10.0277, 0.252345};
 
-  /*map<int, TString> format_y_label = {{1, "1e-8"},
-                                      {2, "1e-4"},
-                                      {3, "1e0"},
-                                      {4, "1e4"}};
+  auto c1 = new TCanvas("c1", "c1", 4000, 2000);
+  Format_Canvas(c1, 2, 1, 0);
+  c1->cd(1);
+
+  map<int, TString> format_y_label = {{1, "10^{-8}"},
+                                      {2, "10^{-4}"},
+                                      {3, "10^{0}"},
+                                      {4, "10^{4}"}};
 
   double param_0[] = {1.1, 6.5, 1.1e-11, 1e5 - 1};
   auto pad = new FormatPad(param_0, sp_pad_title_x, sp_pad_title_y);
   double param_1[] = {0.95, 1.4, 0.05, 0.05, 504, 504};
   pad->set_basic_settings(param_1);
-  // pad->set_logy();
-  // pad->set_margin_pad(par_sp_cuau);
-  pad->set_center_axis_title();*/
+  pad->set_logy();
+  pad->set_margin_pad(par_sp_cuau);
+  pad->set_center_axis_title();
+  pad->draw_pad();
+  pad->set_change_label_y(format_y_label);
 
-  auto c1 = new TCanvas("c1", "c1", 4000, 2000);
-  Format_Canvas(c1, 2, 1, 0);
-  c1->cd(1);
-  SetMarginPad(par_sp_cuau);
-  Format_Pad(param_pad_sp_cuau, sp_pad_title_x, sp_pad_title_y);
-  //pad->draw_pad();
   for (int j = 0; j < 5; ++j) {
     kstar_cuau_sp->sp_draw(j);
     kstar_cuau_sp->sp_fit(koeff_levy_cuau, j);
@@ -292,7 +293,7 @@ void plotter_spectra_for_ppg_heavy() {
   name_fig[1]->Draw();
   //phenix[1]->Draw();
 
-  c1->Print("~/ppg_plots/spectra_cuau_uu_test_colors.png");
+  c1->Print("~/ppg_plots/spectra_cuau_uu_test_new_class.png");
 
   //
   auto levelwide = new TLine();

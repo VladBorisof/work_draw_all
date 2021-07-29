@@ -5,6 +5,10 @@
 #include "particles_data.h"
 
 
+using namespace std;
+
+
+
 class Particles {
 private:
 
@@ -538,7 +542,7 @@ void Particles::latex_draw(Double_t *param, const TString &text) {
    * 3 - size
    * 4 - line_wd
    * */
-   
+
   auto lat_obj = new TLatex();
   lat_obj->SetTextFont(param[2]);
   lat_obj->SetTextSize(param[3]);
@@ -720,3 +724,5 @@ void Particles::unity_level(double *params) {
   unity_level->SetLineWidth(params[4]);
   unity_level->DrawLine(params[0], 1, params[1], 1);
 }
+
+
